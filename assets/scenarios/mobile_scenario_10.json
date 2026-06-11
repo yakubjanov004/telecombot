@@ -1,0 +1,149 @@
+{
+  "variant": 9,
+  "dialogue_profile": "uzun_18",
+  "flow_kind": "long",
+  "target_exchanges": "18",
+  "intents": {
+    "small_talk": {
+      "triggers": [
+        "salom",
+        "assalom",
+        "qalay",
+        "yaxshimisiz",
+        "nima gap",
+        "aka",
+        "uka",
+        "do'stim"
+      ],
+      "responses": [
+        "Vaalaykum! WiFi o'rnatishda yordam beraman.",
+        "Salom aka! Diler nomidan boshlaymiz.",
+        "Assalom! Yangi WiFi — diler nomi?"
+      ],
+      "action": null
+    },
+    "complaint": {
+      "triggers": [
+        "ishlamaydi",
+        "sekin",
+        "uzildi",
+        "muammo",
+        "aloqa yo'q"
+      ],
+      "responses": [
+        "Tushundim, ko'ramiz. WiFi o'rnatish bo'lsa davom etamiz.",
+        "Ha aka, hal qilamiz. Avval ma'lumotni yozing."
+      ],
+      "action": null
+    },
+    "operator_handoff": {
+      "triggers": [
+        "operator",
+        "odam",
+        "jonli odam",
+        "yordam",
+        "menejer"
+      ],
+      "responses": [
+        "Ok, odam chiqadi — kuting.",
+        "Operatorni chaqiraman."
+      ],
+      "action": "handoff"
+    }
+  },
+  "flow": {
+    "greeting": {
+      "responses": [
+        "Salom, qalaysiz? internet masalasidamisiz? Diler nomidan boshlaymiz.",
+        "Vaalaykum! Yangi internet qo'ydirmoqchimisiz? Diler?"
+      ],
+      "next_step": "ask_dealer"
+    },
+    "ask_dealer": {
+      "responses": [
+        "Ha tushunarli. Qayerda yashaysiz — manzil kerak.",
+        "Diler bo'ldi. Manzilni ayting."
+      ],
+      "next_step": "ask_area_extra"
+    },
+    "ask_area": {
+      "responses": [
+        "Rahmat, manzil bor. Endi raqamni bazadan topaman.",
+        "Joy aniq. Bazadan raqam tanlayman hozir."
+      ],
+      "next_step": "ask_login"
+    },
+    "ask_login": {
+      "responses": [
+        "Qarang, bazada {msisdn} bor. Shu bo'ladimi?",
+        "Mijozga {msisdn} beraylikmi?"
+      ],
+      "next_step": "confirm_login"
+    },
+    "confirm_login": {
+      "responses": [
+        "Demak {msisdn}. Tarif-chi?",
+        "Raqam hal qilindi. Tarif nomi?"
+      ],
+      "next_step": "ask_tariff"
+    },
+    "ask_tariff": {
+      "responses": [
+        "Shu tarif qoladimi?",
+        "To'g'rimi tarif?"
+      ],
+      "next_step": "confirm_tariff"
+    },
+    "confirm_tariff": {
+      "responses": [
+        "Qachon qilamiz?",
+        "Bugun bo'ladimi o'rnatish?"
+      ],
+      "next_step": "ask_start_date"
+    },
+    "ask_start_date": {
+      "responses": [
+        "Yana gap bormi?",
+        "Izoh?"
+      ],
+      "next_step": "ask_notes_extra"
+    },
+    "ask_notes": {
+      "responses": [
+        "Hammasi joyida, bazaga tushdi. internet o'rnatish ketyapti.",
+        "Ok, ma'lumotlar ketdi. Montaj."
+      ],
+      "next_step": "processing"
+    },
+    "processing": {
+      "responses": [
+        "Hali bitmadi aka.",
+        "Ulanmoqda hali."
+      ],
+      "next_step": "completed"
+    },
+    "completed": {
+      "responses": [
+        "Bo'ldi, tekshirib ko'ring!",
+        "internet tayyor!"
+      ],
+      "next_step": null
+    },
+    "ask_area_extra": {
+      "responses": [
+        "Manzil bor. Aniqroq — ko'cha, uy raqami yoki mo'ljal bormi?",
+        "Yana bir qator: qaysi ko'cha, uy raqami?",
+        "Pod'ezd yoki mo'ljal yozsangiz yaxshi bo'ladi."
+      ],
+      "next_step": "ask_area"
+    },
+    "ask_notes_extra": {
+      "responses": [
+        "Montaj uchun qulay vaqt qachon — ertalabmi kechqurunmi?",
+        "O'rnatish vaqti bo'yicha izoh bormi?",
+        "Texnik kelishi uchun qo'shimcha eslatma kerakmi?"
+      ],
+      "next_step": "ask_notes"
+    }
+  }
+}

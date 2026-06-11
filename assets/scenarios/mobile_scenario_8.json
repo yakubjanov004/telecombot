@@ -1,0 +1,132 @@
+{
+  "variant": 7,
+  "dialogue_profile": "orta_15",
+  "flow_kind": "normal",
+  "target_exchanges": "15",
+  "intents": {
+    "small_talk": {
+      "triggers": [
+        "salom",
+        "assalom",
+        "qalay",
+        "yaxshimisiz",
+        "nima gap",
+        "aka",
+        "uka",
+        "do'stim"
+      ],
+      "responses": [
+        "Salom! Nima kerak — diler?",
+        "Yaxshimisiz? WiFi bo'yicha diler nomi."
+      ],
+      "action": null
+    },
+    "complaint": {
+      "triggers": [
+        "ishlamaydi",
+        "sekin",
+        "uzildi",
+        "muammo",
+        "aloqa yo'q"
+      ],
+      "responses": [
+        "Muammo eshitildi. Yangi ulanish bo'lsa yozing.",
+        "Ko'ramiz. Diler nomi bilan boshlang."
+      ],
+      "action": null
+    },
+    "operator_handoff": {
+      "triggers": [
+        "operator",
+        "odam",
+        "jonli odam",
+        "yordam",
+        "menejer"
+      ],
+      "responses": [
+        "Hozir ulayman operatorga.",
+        "Jonli odam chiqadi."
+      ],
+      "action": "handoff"
+    }
+  },
+  "flow": {
+    "greeting": {
+      "responses": [
+        "Salom, tez qilamiz. Diler nomi?",
+        "internet kerakmi? Diler yozing."
+      ],
+      "next_step": "ask_dealer"
+    },
+    "ask_dealer": {
+      "responses": [
+        "Manzil?",
+        "Qayerga?"
+      ],
+      "next_step": "ask_area"
+    },
+    "ask_area": {
+      "responses": [
+        "Oldim. Raqam bazadan.",
+        "Ok, bazadan raqam."
+      ],
+      "next_step": "ask_login"
+    },
+    "ask_login": {
+      "responses": [
+        "{msisdn} — olasizmi?",
+        "Raqam {msisdn}, ha?"
+      ],
+      "next_step": "confirm_login"
+    },
+    "confirm_login": {
+      "responses": [
+        "{msisdn} ok. Tarif?",
+        "Tarif?"
+      ],
+      "next_step": "ask_tariff"
+    },
+    "ask_tariff": {
+      "responses": [
+        "To'g'rimi?",
+        "Ha?"
+      ],
+      "next_step": "confirm_tariff"
+    },
+    "confirm_tariff": {
+      "responses": [
+        "Qachon?",
+        "Sana?"
+      ],
+      "next_step": "ask_start_date"
+    },
+    "ask_start_date": {
+      "responses": [
+        "Izoh?",
+        "Yo'q?"
+      ],
+      "next_step": "ask_notes"
+    },
+    "ask_notes": {
+      "responses": [
+        "Bazaga tushdi, o'rnatamiz.",
+        "Keting, montaj."
+      ],
+      "next_step": "processing"
+    },
+    "processing": {
+      "responses": [
+        "Kutyapman sizni...",
+        "Boryapti."
+      ],
+      "next_step": "completed"
+    },
+    "completed": {
+      "responses": [
+        "Bitdi!",
+        "Ulandi!"
+      ],
+      "next_step": null
+    }
+  }
+}

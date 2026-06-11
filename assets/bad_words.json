@@ -1,0 +1,1032 @@
+[
+    {
+        "id": 7,
+        "word": "Ahmoq",
+        "severity": 55
+    },
+    {
+        "id": 130,
+        "word": "Am",
+        "severity": 82
+    },
+    {
+        "id": 321,
+        "word": "Amcha",
+        "severity": 90
+    },
+    {
+        "id": 208,
+        "word": "Befarosat",
+        "severity": 47
+    },
+    {
+        "id": 319,
+        "word": "Blyat",
+        "severity": 50
+    },
+    {
+        "id": 340,
+        "word": "Buvini ami",
+        "severity": 81
+    },
+    {
+        "id": 170,
+        "word": "Cho'choq",
+        "severity": 45
+    },
+    {
+        "id": 196,
+        "word": "Dalban",
+        "severity": 70
+    },
+    {
+        "id": 3,
+        "word": "Dalbayob",
+        "severity": 68
+    },
+    {
+        "id": 238,
+        "word": "Dalbayop",
+        "severity": 67
+    },
+    {
+        "id": 127,
+        "word": "Dnx",
+        "severity": 65
+    },
+    {
+        "id": 6,
+        "word": "Dovdir",
+        "severity": 32
+    },
+    {
+        "id": 320,
+        "word": "Ey qetoq",
+        "severity": 95
+    },
+    {
+        "id": 272,
+        "word": "Foxisha",
+        "severity": 1
+    },
+    {
+        "id": 63,
+        "word": "Fuck",
+        "severity": 1
+    },
+    {
+        "id": 152,
+        "word": "Fuck you",
+        "severity": 1
+    },
+    {
+        "id": 209,
+        "word": "Gandon",
+        "severity": 1
+    },
+    {
+        "id": 296,
+        "word": "Gotalak",
+        "severity": 1
+    },
+    {
+        "id": 29,
+        "word": "Haromi",
+        "severity": 1
+    },
+    {
+        "id": 197,
+        "word": "Hunasa",
+        "severity": 1
+    },
+    {
+        "id": 191,
+        "word": "Iflos",
+        "severity": 1
+    },
+    {
+        "id": 192,
+        "word": "Iplos",
+        "severity": 1
+    },
+    {
+        "id": 39,
+        "word": "Isqirt",
+        "severity": 1
+    },
+    {
+        "id": 1,
+        "word": "Jalab",
+        "severity": 1
+    },
+    {
+        "id": 367,
+        "word": "Jalap",
+        "severity": 85
+    },
+    {
+        "id": 214,
+        "word": "Jalla",
+        "severity": 1
+    },
+    {
+        "id": 345,
+        "word": "Jallab",
+        "severity": 36
+    },
+    {
+        "id": 151,
+        "word": "Jallap",
+        "severity": 1
+    },
+    {
+        "id": 56,
+        "word": "Jinni",
+        "severity": 1
+    },
+    {
+        "id": 205,
+        "word": "Jipiriq",
+        "severity": 1
+    },
+    {
+        "id": 323,
+        "word": "Kispurush",
+        "severity": 30
+    },
+    {
+        "id": 326,
+        "word": "Ko't",
+        "severity": 35
+    },
+    {
+        "id": 195,
+        "word": "Kot",
+        "severity": 1
+    },
+    {
+        "id": 65,
+        "word": "Kotinga",
+        "severity": 1
+    },
+    {
+        "id": 194,
+        "word": "Ko\u02bbt",
+        "severity": 1
+    },
+    {
+        "id": 129,
+        "word": "Lox",
+        "severity": 1
+    },
+    {
+        "id": 190,
+        "word": "Manjalaqi",
+        "severity": 1
+    },
+    {
+        "id": 271,
+        "word": "Maraz",
+        "severity": 1
+    },
+    {
+        "id": 207,
+        "word": "Mol miyya",
+        "severity": 1
+    },
+    {
+        "id": 212,
+        "word": "Om",
+        "severity": 1
+    },
+    {
+        "id": 318,
+        "word": "Onangni sikay",
+        "severity": 100
+    },
+    {
+        "id": 317,
+        "word": "Onenei ami",
+        "severity": 100
+    },
+    {
+        "id": 339,
+        "word": "Opangni omiga ske",
+        "severity": 100
+    },
+    {
+        "id": 298,
+        "word": "Pasholak",
+        "severity": 1
+    },
+    {
+        "id": 5,
+        "word": "Pidaraz",
+        "severity": 1
+    },
+    {
+        "id": 295,
+        "word": "Pidr",
+        "severity": 1
+    },
+    {
+        "id": 156,
+        "word": "Pipez",
+        "severity": 1
+    },
+    {
+        "id": 213,
+        "word": "Pizdes",
+        "severity": 1
+    },
+    {
+        "id": 115,
+        "word": "Poxuy",
+        "severity": 1
+    },
+    {
+        "id": 114,
+        "word": "Poxxuy",
+        "severity": 1
+    },
+    {
+        "id": 325,
+        "word": "Pzdc",
+        "severity": 80
+    },
+    {
+        "id": 154,
+        "word": "Pzds",
+        "severity": 1
+    },
+    {
+        "id": 155,
+        "word": "Pzdss",
+        "severity": 1
+    },
+    {
+        "id": 269,
+        "word": "Qanchiq",
+        "severity": 1
+    },
+    {
+        "id": 270,
+        "word": "Qanciq",
+        "severity": 1
+    },
+    {
+        "id": 189,
+        "word": "Qanjiq",
+        "severity": 1
+    },
+    {
+        "id": 211,
+        "word": "Qetoq",
+        "severity": 1
+    },
+    {
+        "id": 358,
+        "word": "Qo'taq",
+        "severity": 100
+    },
+    {
+        "id": 172,
+        "word": "Qotaqxor",
+        "severity": 1
+    },
+    {
+        "id": 257,
+        "word": "Qoto",
+        "severity": 1
+    },
+    {
+        "id": 169,
+        "word": "Qotoq",
+        "severity": 1
+    },
+    {
+        "id": 25,
+        "word": "Qotoqbosh",
+        "severity": 1
+    },
+    {
+        "id": 210,
+        "word": "Qo\u2019toq",
+        "severity": 1
+    },
+    {
+        "id": 351,
+        "word": "Seks",
+        "severity": 54
+    },
+    {
+        "id": 302,
+        "word": "Sen qishloqlisan",
+        "severity": 1
+    },
+    {
+        "id": 216,
+        "word": "Sik",
+        "severity": 1
+    },
+    {
+        "id": 215,
+        "word": "Sikaman",
+        "severity": 1
+    },
+    {
+        "id": 352,
+        "word": "Sikay",
+        "severity": 54
+    },
+    {
+        "id": 113,
+        "word": "Sikdim",
+        "severity": 1
+    },
+    {
+        "id": 371,
+        "word": "Skay",
+        "severity": 96
+    },
+    {
+        "id": 153,
+        "word": "Ske",
+        "severity": 1
+    },
+    {
+        "id": 297,
+        "word": "Suchka",
+        "severity": 1
+    },
+    {
+        "id": 4,
+        "word": "Suka",
+        "severity": 1
+    },
+    {
+        "id": 218,
+        "word": "Tashoq",
+        "severity": 1
+    },
+    {
+        "id": 217,
+        "word": "Tashshoq",
+        "severity": 1
+    },
+    {
+        "id": 316,
+        "word": "Tashshoq sho'rva",
+        "severity": 68
+    },
+    {
+        "id": 219,
+        "word": "Tashshoq sho\u2019rva",
+        "severity": 1
+    },
+    {
+        "id": 176,
+        "word": "Tente",
+        "severity": 1
+    },
+    {
+        "id": 64,
+        "word": "Xaromi",
+        "severity": 1
+    },
+    {
+        "id": 143,
+        "word": "Ya yebal tebya",
+        "severity": 1
+    },
+    {
+        "id": 233,
+        "word": "Yban",
+        "severity": 1
+    },
+    {
+        "id": 198,
+        "word": "Ybat",
+        "severity": 1
+    },
+    {
+        "id": 15,
+        "word": "Yeban",
+        "severity": 1
+    },
+    {
+        "id": 62,
+        "word": "Yebanutiy",
+        "severity": 1
+    },
+    {
+        "id": 373,
+        "word": "Yebat",
+        "severity": 83
+    },
+    {
+        "id": 2,
+        "word": "Yiban",
+        "severity": 1
+    },
+    {
+        "id": 372,
+        "word": "Yobbana",
+        "severity": 50
+    },
+    {
+        "id": 183,
+        "word": "Zaybal",
+        "severity": 1
+    },
+    {
+        "id": 78,
+        "word": "ahmoq",
+        "severity": 1
+    },
+    {
+        "id": 142,
+        "word": "ahuel",
+        "severity": 1
+    },
+    {
+        "id": 22,
+        "word": "am",
+        "severity": 1
+    },
+    {
+        "id": 329,
+        "word": "ambaliq",
+        "severity": 5
+    },
+    {
+        "id": 223,
+        "word": "amcha",
+        "severity": 1
+    },
+    {
+        "id": 108,
+        "word": "aminga",
+        "severity": 1
+    },
+    {
+        "id": 349,
+        "word": "amingga ske",
+        "severity": 97
+    },
+    {
+        "id": 16,
+        "word": "ammisan",
+        "severity": 93
+    },
+    {
+        "id": 360,
+        "word": "axmoq",
+        "severity": 50
+    },
+    {
+        "id": 236,
+        "word": "basharenga qotogm",
+        "severity": 1
+    },
+    {
+        "id": 330,
+        "word": "bich",
+        "severity": 50
+    },
+    {
+        "id": 93,
+        "word": "bitch",
+        "severity": 1
+    },
+    {
+        "id": 99,
+        "word": "ble",
+        "severity": 1
+    },
+    {
+        "id": 53,
+        "word": "blet",
+        "severity": 1
+    },
+    {
+        "id": 30,
+        "word": "blyat",
+        "severity": 50
+    },
+    {
+        "id": 261,
+        "word": "bo'qidish",
+        "severity": 1
+    },
+    {
+        "id": 262,
+        "word": "bo'qkalla",
+        "severity": 1
+    },
+    {
+        "id": 244,
+        "word": "boq",
+        "severity": 1
+    },
+    {
+        "id": 9,
+        "word": "buvini ami",
+        "severity": 100
+    },
+    {
+        "id": 10,
+        "word": "buvini amiga ske",
+        "severity": 100
+    },
+    {
+        "id": 279,
+        "word": "chmo",
+        "severity": 1
+    },
+    {
+        "id": 368,
+        "word": "cho'choq",
+        "severity": 50
+    },
+    {
+        "id": 280,
+        "word": "chumo",
+        "severity": 1
+    },
+    {
+        "id": 305,
+        "word": "dabba",
+        "severity": 1
+    },
+    {
+        "id": 370,
+        "word": "dalban",
+        "severity": 50
+    },
+    {
+        "id": 107,
+        "word": "dalbayob",
+        "severity": 1
+    },
+    {
+        "id": 278,
+        "word": "daun",
+        "severity": 1
+    },
+    {
+        "id": 84,
+        "word": "dinnaxuy",
+        "severity": 1
+    },
+    {
+        "id": 8,
+        "word": "foxisha qanchiq",
+        "severity": 79
+    },
+    {
+        "id": 110,
+        "word": "fuck",
+        "severity": 1
+    },
+    {
+        "id": 324,
+        "word": "fuck off",
+        "severity": 75
+    },
+    {
+        "id": 111,
+        "word": "fucking",
+        "severity": 1
+    },
+    {
+        "id": 160,
+        "word": "gandon",
+        "severity": 1
+    },
+    {
+        "id": 361,
+        "word": "garang",
+        "severity": 50
+    },
+    {
+        "id": 167,
+        "word": "gay",
+        "severity": 1
+    },
+    {
+        "id": 166,
+        "word": "gey",
+        "severity": 1
+    },
+    {
+        "id": 161,
+        "word": "gnida",
+        "severity": 1
+    },
+    {
+        "id": 227,
+        "word": "haromi",
+        "severity": 1
+    },
+    {
+        "id": 203,
+        "word": "hunasa",
+        "severity": 1
+    },
+    {
+        "id": 334,
+        "word": "idi naxuy",
+        "severity": 90
+    },
+    {
+        "id": 357,
+        "word": "iflos",
+        "severity": 48
+    },
+    {
+        "id": 331,
+        "word": "it",
+        "severity": 10
+    },
+    {
+        "id": 260,
+        "word": "itbet",
+        "severity": 1
+    },
+    {
+        "id": 95,
+        "word": "jala",
+        "severity": 1
+    },
+    {
+        "id": 98,
+        "word": "jala ble",
+        "severity": 1
+    },
+    {
+        "id": 303,
+        "word": "jalaaap",
+        "severity": 1
+    },
+    {
+        "id": 76,
+        "word": "jalab",
+        "severity": 1
+    },
+    {
+        "id": 158,
+        "word": "jalap",
+        "severity": 1
+    },
+    {
+        "id": 88,
+        "word": "jalla",
+        "severity": 1
+    },
+    {
+        "id": 89,
+        "word": "jallap",
+        "severity": 1
+    },
+    {
+        "id": 374,
+        "word": "jentra miyya",
+        "severity": 50
+    },
+    {
+        "id": 24,
+        "word": "jinni",
+        "severity": 50
+    },
+    {
+        "id": 366,
+        "word": "kashanda",
+        "severity": 25
+    },
+    {
+        "id": 33,
+        "word": "ko't",
+        "severity": 1
+    },
+    {
+        "id": 26,
+        "word": "kot",
+        "severity": 1
+    },
+    {
+        "id": 310,
+        "word": "lox",
+        "severity": 40
+    },
+    {
+        "id": 293,
+        "word": "mol",
+        "severity": 15
+    },
+    {
+        "id": 306,
+        "word": "nedagon",
+        "severity": 1
+    },
+    {
+        "id": 199,
+        "word": "nigga",
+        "severity": 1
+    },
+    {
+        "id": 83,
+        "word": "nigger",
+        "severity": 1
+    },
+    {
+        "id": 23,
+        "word": "om",
+        "severity": 1
+    },
+    {
+        "id": 96,
+        "word": "onangni",
+        "severity": 1
+    },
+    {
+        "id": 327,
+        "word": "onangni ami",
+        "severity": 100
+    },
+    {
+        "id": 341,
+        "word": "onangni sikay",
+        "severity": 50
+    },
+    {
+        "id": 365,
+        "word": "oneni ami",
+        "severity": 100
+    },
+    {
+        "id": 184,
+        "word": "oom",
+        "severity": 1
+    },
+    {
+        "id": 363,
+        "word": "o\u02bbl",
+        "severity": 50
+    },
+    {
+        "id": 12,
+        "word": "p1zdes",
+        "severity": 1
+    },
+    {
+        "id": 333,
+        "word": "pashol na xuy",
+        "severity": 100
+    },
+    {
+        "id": 75,
+        "word": "pidaras",
+        "severity": 1
+    },
+    {
+        "id": 74,
+        "word": "pidaraz",
+        "severity": 1
+    },
+    {
+        "id": 97,
+        "word": "pidr",
+        "severity": 1
+    },
+    {
+        "id": 86,
+        "word": "pizda",
+        "severity": 1
+    },
+    {
+        "id": 11,
+        "word": "pizdes",
+        "severity": 1
+    },
+    {
+        "id": 92,
+        "word": "qanjiq",
+        "severity": 1
+    },
+    {
+        "id": 85,
+        "word": "qo'toq",
+        "severity": 1
+    },
+    {
+        "id": 28,
+        "word": "qo'toqbosh",
+        "severity": 1
+    },
+    {
+        "id": 116,
+        "word": "qotaq",
+        "severity": 1
+    },
+    {
+        "id": 234,
+        "word": "qoto",
+        "severity": 1
+    },
+    {
+        "id": 72,
+        "word": "qotoq",
+        "severity": 1
+    },
+    {
+        "id": 282,
+        "word": "qutoq",
+        "severity": 1
+    },
+    {
+        "id": 31,
+        "word": "seks",
+        "severity": 1
+    },
+    {
+        "id": 71,
+        "word": "seksi baby",
+        "severity": 1
+    },
+    {
+        "id": 13,
+        "word": "sex",
+        "severity": 1
+    },
+    {
+        "id": 348,
+        "word": "sexy woman",
+        "severity": 75
+    },
+    {
+        "id": 322,
+        "word": "shavqatsiz",
+        "severity": 5
+    },
+    {
+        "id": 109,
+        "word": "sikay",
+        "severity": 1
+    },
+    {
+        "id": 134,
+        "word": "sike",
+        "severity": 1
+    },
+    {
+        "id": 18,
+        "word": "sikish",
+        "severity": 1
+    },
+    {
+        "id": 20,
+        "word": "siktim",
+        "severity": 1
+    },
+    {
+        "id": 17,
+        "word": "sikvoti",
+        "severity": 1
+    },
+    {
+        "id": 73,
+        "word": "skay",
+        "severity": 1
+    },
+    {
+        "id": 21,
+        "word": "ske",
+        "severity": 1
+    },
+    {
+        "id": 159,
+        "word": "skey",
+        "severity": 1
+    },
+    {
+        "id": 106,
+        "word": "suchka",
+        "severity": 1
+    },
+    {
+        "id": 90,
+        "word": "suka",
+        "severity": 1
+    },
+    {
+        "id": 119,
+        "word": "sukka",
+        "severity": 1
+    },
+    {
+        "id": 87,
+        "word": "tashsho",
+        "severity": 1
+    },
+    {
+        "id": 32,
+        "word": "tupoy",
+        "severity": 1
+    },
+    {
+        "id": 162,
+        "word": "tvar",
+        "severity": 1
+    },
+    {
+        "id": 163,
+        "word": "tvariddin",
+        "severity": 1
+    },
+    {
+        "id": 137,
+        "word": "wtf",
+        "severity": 1
+    },
+    {
+        "id": 27,
+        "word": "xaromi",
+        "severity": 1
+    },
+    {
+        "id": 140,
+        "word": "xuyeplet",
+        "severity": 1
+    },
+    {
+        "id": 139,
+        "word": "xuyesos",
+        "severity": 1
+    },
+    {
+        "id": 141,
+        "word": "xuyila",
+        "severity": 1
+    },
+    {
+        "id": 19,
+        "word": "yban",
+        "severity": 1
+    },
+    {
+        "id": 281,
+        "word": "yeban",
+        "severity": 1
+    },
+    {
+        "id": 148,
+        "word": "yebanashka",
+        "severity": 1
+    },
+    {
+        "id": 287,
+        "word": "yebat",
+        "severity": 1
+    },
+    {
+        "id": 91,
+        "word": "yebbat",
+        "severity": 1
+    },
+    {
+        "id": 364,
+        "word": "yeblan",
+        "severity": 44
+    },
+    {
+        "id": 145,
+        "word": "yebnu",
+        "severity": 1
+    },
+    {
+        "id": 144,
+        "word": "yebu",
+        "severity": 1
+    },
+    {
+        "id": 14,
+        "word": "yetim",
+        "severity": 1
+    },
+    {
+        "id": 94,
+        "word": "yetm",
+        "severity": 1
+    },
+    {
+        "id": 277,
+        "word": "yiban",
+        "severity": 1
+    },
+    {
+        "id": 283,
+        "word": "yibanat",
+        "severity": 1
+    }
+]

@@ -1,0 +1,127 @@
+{
+  "groups": {
+    "internet": [
+      {
+        "id": "internet-home",
+        "title": "Uy uchun / Ommabop",
+        "description": "Hammasi birga — internet va mobil aloqa bitta tarifda",
+        "icon": "🏠"
+      },
+      {
+        "id": "internet-promo",
+        "title": "Foydali / Promo",
+        "description": "Foydali va aksiya tariflari — arzon uy interneti",
+        "icon": "💰"
+      },
+      {
+        "id": "internet-business",
+        "title": "Biznes / Yakka tadbirkor",
+        "description": "Yakka tadbirkorlar va kichik biznes uchun",
+        "icon": "💼"
+      }
+    ],
+    "mobile": [
+      {
+        "id": "mobile-popular",
+        "title": "Ommabop tariflar",
+        "description": "Super Salom, Optimal, V PLUS va boshqa mashhur tariflar",
+        "icon": "📱"
+      },
+      {
+        "id": "mobile-ideal",
+        "title": "Ideal / Mobile seriyasi",
+        "description": "Ideal Plus, Mobile Elite, Mobile Lux va boshqa premium tariflar",
+        "icon": "⭐"
+      },
+      {
+        "id": "mobile-data",
+        "title": "Internet paketli tariflar",
+        "description": "Katta hajmli internet paketlari — Data va Tarif seriyasi",
+        "icon": "📶"
+      },
+      {
+        "id": "mobile-salom",
+        "title": "Salom / Aksiya tariflari",
+        "description": "Salom Mobile va bayramona aksiya tariflari",
+        "icon": "🎉"
+      },
+      {
+        "id": "mobile-special",
+        "title": "Oilaviy / ta'lim / maxsus",
+        "description": "Maktab, Farzand, Muruvvat va boshqa maxsus tariflar",
+        "icon": "👨‍👩‍👧"
+      },
+      {
+        "id": "mobile-business",
+        "title": "Biznes / maxsus qurilmalar",
+        "description": "YTT, M2M va korporativ qurilmalar uchun",
+        "icon": "🔧"
+      }
+    ]
+  },
+  "tariffs": [
+    { "id": 1, "name": "HAMMASI BIRGA 1", "service_type": "internet", "group": "internet-home", "price": 119000, "speed": "100 Mbps", "description": "Internet 100 Mbps + Mobil aloqa paketi" },
+    { "id": 2, "name": "HAMMASI BIRGA 1+", "service_type": "internet", "group": "internet-home", "price": 129000, "speed": "120 Mbps", "description": "Internet 120 Mbps + Mobil daqiqalar va gigabaytlar" },
+    { "id": 3, "name": "HAMMASI BIRGA 2", "service_type": "internet", "group": "internet-home", "price": 139000, "speed": "150 Mbps", "description": "Internet 150 Mbps + Mobil VIP paket" },
+    { "id": 4, "name": "HAMMASI BIRGA 2+", "service_type": "internet", "group": "internet-home", "price": 169000, "speed": "200 Mbps", "description": "Internet 200 Mbps + Premium TV + Mobil aloqa" },
+    { "id": 5, "name": "HAMMASI BIRGA 3", "service_type": "internet", "group": "internet-home", "price": 149000, "speed": "250 Mbps", "description": "Internet 250 Mbps + Mobil aloqa + IPTV" },
+    { "id": 6, "name": "HAMMASI BIRGA 3+", "service_type": "internet", "group": "internet-home", "price": 159000, "speed": "300 Mbps", "description": "Internet 300 Mbps + Mobil VIP + IPTV" },
+    { "id": 7, "name": "HAMMASI BIRGA 3+Mobile", "service_type": "internet", "group": "internet-home", "price": 179000, "speed": "300 Mbps", "description": "Internet 300 Mbps + kengaytirilgan mobil paket" },
+    { "id": 8, "name": "HAMMASI BIRGA 4", "service_type": "internet", "group": "internet-home", "price": 189000, "speed": "400 Mbps", "description": "Internet 400 Mbps + Mobil + IPTV Premium" },
+    { "id": 9, "name": "HAMMASI BIRGA 5", "service_type": "internet", "group": "internet-home", "price": 199000, "speed": "500 Mbps", "description": "Internet 500 Mbps + to'liq mobil va TV paketi" },
+
+    { "id": 10, "name": "FOYDALI - 1", "service_type": "internet", "group": "internet-promo", "price": 70000, "speed": "50 Mbps", "description": "Cheksiz yuqori tezlikdagi uy interneti" },
+    { "id": 11, "name": "FOYDALI - 1+", "service_type": "internet", "group": "internet-promo", "price": 85000, "speed": "70 Mbps", "description": "Cheksiz internet + Wi-Fi router bepul" },
+    { "id": 12, "name": "FOYDALI - 2+", "service_type": "internet", "group": "internet-promo", "price": 99000, "speed": "100 Mbps", "description": "Tezkor GPON internet + 100 ta IPTV kanallari" },
+    { "id": 13, "name": "FOYDALI - 3+", "service_type": "internet", "group": "internet-promo", "price": 149000, "speed": "300 Mbps", "description": "Ultra tezkor internet + GPON router + IPTV VIP" },
+    { "id": 14, "name": "ONLINE PROMO", "service_type": "internet", "group": "internet-promo", "price": 60000, "speed": "40 Mbps", "description": "Maxsus aksiya bo'yicha arzon uy interneti" },
+    { "id": 15, "name": "UNLIM 7", "service_type": "internet", "group": "internet-promo", "price": 55000, "speed": "30 Mbps", "description": "Barqaror cheksiz uy interneti" },
+
+    { "id": 16, "name": "YAKKA TADBIRKOR 1", "service_type": "internet", "group": "internet-business", "price": 120000, "speed": "100 Mbps", "description": "Yakka tadbirkorlar uchun asosiy internet" },
+    { "id": 17, "name": "YAKKA TADBIRKOR 2", "service_type": "internet", "group": "internet-business", "price": 150000, "speed": "150 Mbps", "description": "Yakka tadbirkorlar uchun kengaytirilgan paket" },
+    { "id": 18, "name": "YAKKA TADBIRKOR 3", "service_type": "internet", "group": "internet-business", "price": 180000, "speed": "200 Mbps", "description": "Yakka tadbirkorlar uchun tezkor internet" },
+    { "id": 19, "name": "YAKKA TADBIRKOR 4", "service_type": "internet", "group": "internet-business", "price": 220000, "speed": "300 Mbps", "description": "Yakka tadbirkorlar uchun premium internet" },
+
+    { "id": 101, "name": "Super Salom", "service_type": "mobile", "group": "mobile-popular", "price": 25000, "minutes": "2000 min", "sms": "1000 SMS", "mb": "5 GB", "description": "Ekonomik muloqot va asosiy internet paketi" },
+    { "id": 102, "name": "Bonus Super Salom", "service_type": "mobile", "group": "mobile-popular", "price": 0, "minutes": "1000 min", "sms": "500 SMS", "mb": "2 GB", "description": "Bonus tarif muloqot uchun" },
+    { "id": 103, "name": "Super Lux", "service_type": "mobile", "group": "mobile-popular", "price": 75000, "minutes": "Cheksiz", "sms": "5000 SMS", "mb": "50 GB", "description": "Yuqori darajadagi foydalanuvchilar uchun" },
+    { "id": 104, "name": "Bonus Super Lux", "service_type": "mobile", "group": "mobile-popular", "price": 0, "minutes": "3000 min", "sms": "2000 SMS", "mb": "20 GB", "description": "Bonus Super Lux tarifi" },
+    { "id": 105, "name": "Optimal", "service_type": "mobile", "group": "mobile-popular", "price": 33000, "minutes": "3000 min", "sms": "1000 SMS", "mb": "10 GB", "description": "Optimal narx va qulay shartlar" },
+    { "id": 106, "name": "Super Bonus", "service_type": "mobile", "group": "mobile-popular", "price": 20000, "minutes": "1500 min", "sms": "500 SMS", "mb": "5 GB", "description": "Super Bonus tarifi" },
+    { "id": 107, "name": "V PLUS", "service_type": "mobile", "group": "mobile-popular", "price": 50000, "minutes": "4000 min", "sms": "2000 SMS", "mb": "20 GB", "description": "Faol yoshlar uchun katta internet paketi" },
+    { "id": 108, "name": "Balance", "service_type": "mobile", "group": "mobile-popular", "price": 28000, "minutes": "2500 min", "sms": "800 SMS", "mb": "8 GB", "description": "Balans tarifi — qulay narx" },
+    { "id": 109, "name": "Mobile Balance", "service_type": "mobile", "group": "mobile-popular", "price": 30000, "minutes": "3000 min", "sms": "1000 SMS", "mb": "10 GB", "description": "Mobile Balance tarifi" },
+
+    { "id": 110, "name": "Ideal Plus", "service_type": "mobile", "group": "mobile-ideal", "price": 45000, "minutes": "5000 min", "sms": "2000 SMS", "mb": "15 GB", "description": "Ideal muvozanat: ko'p daqiqalar va barqaror internet" },
+    { "id": 111, "name": "Bonus Ideal", "service_type": "mobile", "group": "mobile-ideal", "price": 0, "minutes": "1500 min", "sms": "500 SMS", "mb": "3 GB", "description": "Bonus Ideal tarifi" },
+    { "id": 112, "name": "Bonus Ideal Plus", "service_type": "mobile", "group": "mobile-ideal", "price": 0, "minutes": "2000 min", "sms": "1000 SMS", "mb": "5 GB", "description": "Bonus tarif qo'shimcha imkoniyatlar bilan" },
+    { "id": 113, "name": "Ideal yil", "service_type": "mobile", "group": "mobile-ideal", "price": 40000, "minutes": "4000 min", "sms": "1500 SMS", "mb": "12 GB", "description": "Yillik Ideal tarif rejasi" },
+    { "id": 114, "name": "Mobile Ideal", "service_type": "mobile", "group": "mobile-ideal", "price": 42000, "minutes": "4500 min", "sms": "1800 SMS", "mb": "14 GB", "description": "Mobile Ideal seriyasi" },
+    { "id": 115, "name": "Mobile Optimal", "service_type": "mobile", "group": "mobile-ideal", "price": 35000, "minutes": "3500 min", "sms": "1200 SMS", "mb": "12 GB", "description": "Mobile Optimal seriyasi" },
+    { "id": 116, "name": "Mobile Mini M", "service_type": "mobile", "group": "mobile-ideal", "price": 22000, "minutes": "2000 min", "sms": "600 SMS", "mb": "6 GB", "description": "Mobile Mini M — ixcham paket" },
+    { "id": 117, "name": "Mobile Lux", "service_type": "mobile", "group": "mobile-ideal", "price": 65000, "minutes": "Cheksiz", "sms": "3000 SMS", "mb": "40 GB", "description": "Mobile Lux premium paket" },
+    { "id": 118, "name": "Mobile Elite", "service_type": "mobile", "group": "mobile-ideal", "price": 120000, "minutes": "Cheksiz", "sms": "10000 SMS", "mb": "Cheksiz", "description": "Premium VIP paket: cheksiz muloqot va internet" },
+    { "id": 119, "name": "Mobile Sport", "service_type": "mobile", "group": "mobile-ideal", "price": 55000, "minutes": "5000 min", "sms": "2000 SMS", "mb": "30 GB", "description": "Sport va faol hayot uchun tarif" },
+
+    { "id": 120, "name": "Data 300GB", "service_type": "mobile", "group": "mobile-data", "price": 80000, "minutes": "—", "sms": "—", "mb": "300 GB", "description": "300 GB internet paketi" },
+    { "id": 121, "name": "Data 600GB", "service_type": "mobile", "group": "mobile-data", "price": 120000, "minutes": "—", "sms": "—", "mb": "600 GB", "description": "600 GB internet paketi" },
+    { "id": 122, "name": "Data 1TB", "service_type": "mobile", "group": "mobile-data", "price": 180000, "minutes": "—", "sms": "—", "mb": "1 TB", "description": "1 TB internet paketi" },
+    { "id": 123, "name": "Tarif 5 GB", "service_type": "mobile", "group": "mobile-data", "price": 15000, "minutes": "500 min", "sms": "200 SMS", "mb": "5 GB", "description": "5 GB internet paketli tarif" },
+    { "id": 124, "name": "Tarif 15 GB", "service_type": "mobile", "group": "mobile-data", "price": 35000, "minutes": "2000 min", "sms": "800 SMS", "mb": "15 GB", "description": "15 GB internet paketli tarif" },
+
+    { "id": 125, "name": "Salom Mobile", "service_type": "mobile", "group": "mobile-salom", "price": 20000, "minutes": "1500 min", "sms": "500 SMS", "mb": "5 GB", "description": "Salom Mobile tarifi" },
+    { "id": 126, "name": "Bonusli Salom Mobile", "service_type": "mobile", "group": "mobile-salom", "price": 0, "minutes": "1000 min", "sms": "400 SMS", "mb": "3 GB", "description": "Bonusli Salom Mobile tarifi" },
+    { "id": 127, "name": "Bayramona Salom", "service_type": "mobile", "group": "mobile-salom", "price": 18000, "minutes": "1200 min", "sms": "500 SMS", "mb": "4 GB", "description": "Bayramona aksiya tarifi" },
+
+    { "id": 128, "name": "Farzand", "service_type": "mobile", "group": "mobile-special", "price": 18000, "minutes": "1200 min", "sms": "400 SMS", "mb": "6 GB", "description": "Farzandlar uchun maxsus tarif" },
+    { "id": 129, "name": "MAKTAB", "service_type": "mobile", "group": "mobile-special", "price": 20000, "minutes": "1500 min", "sms": "500 SMS", "mb": "8 GB", "description": "O'quvchilar va ta'lim uchun maxsus tarif" },
+    { "id": 130, "name": "TA'LIM B2C", "service_type": "mobile", "group": "mobile-special", "price": 22000, "minutes": "1800 min", "sms": "600 SMS", "mb": "10 GB", "description": "Ta'lim sohasi uchun B2C tarif" },
+    { "id": 131, "name": "Muruvvat", "service_type": "mobile", "group": "mobile-special", "price": 15000, "minutes": "1000 min", "sms": "500 SMS", "mb": "3 GB", "description": "Ijtimoiy yordam tarifi" },
+    { "id": 132, "name": "Qahramon", "service_type": "mobile", "group": "mobile-special", "price": 0, "minutes": "Cheksiz", "sms": "1000 SMS", "mb": "10 GB", "description": "Qahramonlar uchun maxsus tarif" },
+    { "id": 133, "name": "MAXSUS MOBILE", "service_type": "mobile", "group": "mobile-special", "price": 25000, "minutes": "2000 min", "sms": "800 SMS", "mb": "8 GB", "description": "Maxsus Mobile tarifi" },
+
+    { "id": 134, "name": "YTT", "service_type": "mobile", "group": "mobile-business", "price": 40000, "minutes": "3000 min", "sms": "1000 SMS", "mb": "15 GB", "description": "Yakka tartibdagi tadbirkorlar uchun" },
+    { "id": 135, "name": "Uzmobile M2M yil", "service_type": "mobile", "group": "mobile-business", "price": 60000, "minutes": "—", "sms": "—", "mb": "5 GB", "description": "M2M qurilmalar uchun yillik tarif" },
+    { "id": 136, "name": "UZCARD GSM", "service_type": "mobile", "group": "mobile-business", "price": 35000, "minutes": "2000 min", "sms": "500 SMS", "mb": "5 GB", "description": "UZCARD GSM maxsus tarifi" }
+  ]
+}

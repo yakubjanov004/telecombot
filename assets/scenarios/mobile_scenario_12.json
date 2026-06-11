@@ -1,0 +1,148 @@
+{
+  "variant": 11,
+  "dialogue_profile": "uzun_22",
+  "flow_kind": "long",
+  "target_exchanges": "22",
+  "intents": {
+    "small_talk": {
+      "triggers": [
+        "salom",
+        "assalom",
+        "qalay",
+        "yaxshimisiz",
+        "nima gap",
+        "aka",
+        "uka",
+        "do'stim"
+      ],
+      "responses": [
+        "Assalomu alaykum! Qanday yordam bera olaman?",
+        "Salom, hurmat bilan. Diler nomi kerak."
+      ],
+      "action": null
+    },
+    "complaint": {
+      "triggers": [
+        "ishlamaydi",
+        "sekin",
+        "uzildi",
+        "muammo",
+        "aloqa yo'q"
+      ],
+      "responses": [
+        "Noqulaylik uchun uzr. Davom etamiz.",
+        "Texnik tomondan ko'rib chiqamiz."
+      ],
+      "action": null
+    },
+    "operator_handoff": {
+      "triggers": [
+        "operator",
+        "odam",
+        "jonli odam",
+        "yordam",
+        "menejer"
+      ],
+      "responses": [
+        "Mutaxassisni chaqiraman.",
+        "Bir daqiqa, operator ulanadi."
+      ],
+      "action": "handoff"
+    }
+  },
+  "flow": {
+    "greeting": {
+      "responses": [
+        "Operator onlayn. internet buyurtma — diler nomi?",
+        "Salom, ulanish bo'limi. Diler?"
+      ],
+      "next_step": "ask_dealer"
+    },
+    "ask_dealer": {
+      "responses": [
+        "Manzil/hudud kiriting.",
+        "O'rnatish joyi?"
+      ],
+      "next_step": "ask_area_extra"
+    },
+    "ask_area": {
+      "responses": [
+        "Manzil DB ga tushdi. MSISDN tanlanmoqda.",
+        "Bazadan raqam olinmoqda."
+      ],
+      "next_step": "ask_login"
+    },
+    "ask_login": {
+      "responses": [
+        "MSISDN: {msisdn}. Mijozga berilsinmi?",
+        "Raqam {msisdn} — tasdiq?"
+      ],
+      "next_step": "confirm_login"
+    },
+    "confirm_login": {
+      "responses": [
+        "{msisdn} OK. Rate plan?",
+        "Tarif?"
+      ],
+      "next_step": "ask_tariff"
+    },
+    "ask_tariff": {
+      "responses": [
+        "Plan to'g'ri?",
+        "Confirm?"
+      ],
+      "next_step": "confirm_tariff"
+    },
+    "confirm_tariff": {
+      "responses": [
+        "Start date?",
+        "Qachon?"
+      ],
+      "next_step": "ask_start_date"
+    },
+    "ask_start_date": {
+      "responses": [
+        "Notes?",
+        "Izoh?"
+      ],
+      "next_step": "ask_notes_extra"
+    },
+    "ask_notes": {
+      "responses": [
+        "Record saved. Installation started.",
+        "Bazaga tushdi, montaj."
+      ],
+      "next_step": "processing"
+    },
+    "processing": {
+      "responses": [
+        "In progress.",
+        "Wait."
+      ],
+      "next_step": "completed"
+    },
+    "completed": {
+      "responses": [
+        "Done.",
+        "Active."
+      ],
+      "next_step": null
+    },
+    "ask_area_extra": {
+      "responses": [
+        "Manzil bor. Aniqroq — ko'cha, uy raqami yoki mo'ljal bormi?",
+        "Yana bir qator: qaysi ko'cha, uy raqami?",
+        "Pod'ezd yoki mo'ljal yozsangiz yaxshi bo'ladi."
+      ],
+      "next_step": "ask_area"
+    },
+    "ask_notes_extra": {
+      "responses": [
+        "Montaj uchun qulay vaqt qachon — ertalabmi kechqurunmi?",
+        "O'rnatish vaqti bo'yicha izoh bormi?",
+        "Texnik kelishi uchun qo'shimcha eslatma kerakmi?"
+      ],
+      "next_step": "ask_notes"
+    }
+  }
+}

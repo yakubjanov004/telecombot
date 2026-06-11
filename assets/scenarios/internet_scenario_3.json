@@ -1,0 +1,132 @@
+{
+  "variant": 2,
+  "dialogue_profile": "qisqa_10",
+  "flow_kind": "short",
+  "target_exchanges": "10",
+  "intents": {
+    "small_talk": {
+      "triggers": [
+        "salom",
+        "assalom",
+        "qalay",
+        "yaxshimisiz",
+        "nima gap",
+        "aka",
+        "uka",
+        "do'stim"
+      ],
+      "responses": [
+        "Assalomu alaykum! Qanday yordam bera olaman?",
+        "Salom, hurmat bilan. Diler nomi kerak."
+      ],
+      "action": null
+    },
+    "complaint": {
+      "triggers": [
+        "ishlamaydi",
+        "sekin",
+        "uzildi",
+        "muammo",
+        "aloqa yo'q"
+      ],
+      "responses": [
+        "Noqulaylik uchun uzr. Davom etamiz.",
+        "Texnik tomondan ko'rib chiqamiz."
+      ],
+      "action": null
+    },
+    "operator_handoff": {
+      "triggers": [
+        "operator",
+        "odam",
+        "jonli odam",
+        "yordam",
+        "menejer"
+      ],
+      "responses": [
+        "Mutaxassisni chaqiraman.",
+        "Bir daqiqa, operator ulanadi."
+      ],
+      "action": "handoff"
+    }
+  },
+  "flow": {
+    "greeting": {
+      "responses": [
+        "Assalomu alaykum! Uyingizga WiFi ulatishga yordam beraman. Diler nomini yozing, iltimos.",
+        "Salom, hurmatli mijoz. Internet o'rnatish uchun avvalo diler nomi kerak bo'ladi."
+      ],
+      "next_step": "ask_dealer"
+    },
+    "ask_dealer": {
+      "responses": [
+        "Rahmat. WiFi qaysi manzilga o'rnatiladi?",
+        "Diler qabul qilindi. Iltimos, tuman yoki to'liq manzilni yozing."
+      ],
+      "next_step": "ask_area"
+    },
+    "ask_area": {
+      "responses": [
+        "Manzilingiz qayd etildi. Bazadan mos raqam tanlab taqdim etaman.",
+        "Hudud ma'lumoti yetarli. Hozir raqamni bazadan ko'rib chiqaman."
+      ],
+      "next_step": "ask_login"
+    },
+    "ask_login": {
+      "responses": [
+        "Bazamizda {msisdn} raqami mavjud. Ushbu raqamni xohlaysizmi?",
+        "Sizga {msisdn} raqamini taklif qilmoqchimiz. Rozimisiz?"
+      ],
+      "next_step": "confirm_login"
+    },
+    "confirm_login": {
+      "responses": [
+        "{msisdn} tasdiqlandi. Iltimos, WiFi tarifini yozing.",
+        "Raqam qabul qilindi. Keyingi qadam — tarif tanlash."
+      ],
+      "next_step": "ask_tariff"
+    },
+    "ask_tariff": {
+      "responses": [
+        "Tanlangan tarif to'g'rimi?",
+        "Iltimos, tasdiqlang."
+      ],
+      "next_step": "confirm_tariff"
+    },
+    "confirm_tariff": {
+      "responses": [
+        "Qaysi sanadan boshlab faollashtiramiz?",
+        "O'rnatish sanasini yozing."
+      ],
+      "next_step": "processing"
+    },
+    "ask_start_date": {
+      "responses": [
+        "Qo'shimcha izoh bormi?",
+        "Boshqa ma'lumot kerakmi?"
+      ],
+      "next_step": "ask_notes"
+    },
+    "ask_notes": {
+      "responses": [
+        "Barcha ma'lumotlar bazaga kiritildi. WiFi o'rnatish boshlanmoqda.",
+        "Ma'lumotlar saqlandi. Montaj jarayoni ketmoqda."
+      ],
+      "next_step": "processing"
+    },
+    "processing": {
+      "responses": [
+        "Ulanish amalga oshirilmoqda, kuting.",
+        "Texnik ishlar davom etmoqda."
+      ],
+      "next_step": "completed"
+    },
+    "completed": {
+      "responses": [
+        "Xizmat ulandi. Tekshirib ko'ring.",
+        "WiFi faol holatda."
+      ],
+      "next_step": null
+    }
+  }
+}
