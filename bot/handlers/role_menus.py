@@ -20,7 +20,6 @@ from backend.models import (
     MobileSale,
     ServiceType,
     UserRole,
-    OperatorType,
     ReportPeriod,
     Branch,
     Dealer,
@@ -173,15 +172,6 @@ async def _save_internet_sale(message: Message, state: FSMContext, session: Asyn
 @router.message(F.text.in_([ButtonTexts.OP_MOBILE_UZ, ButtonTexts.OP_MOBILE_RU]))
 async def start_mobile_sale(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_SALES_ROLES):
-        return
-    user = await UserRepo.get_user(session, message.from_user.id)
-    if user and user.role == UserRole.OPERATOR and user.operator_type == OperatorType.MONTYOR:
-        lang = user.lang or "uz"
-        menu, _ = await reply_menu_for_user(session, message.from_user.id)
-        await message.answer(
-            tr(lang, "⛔ Montyor faqat internet sotuvini kiritishi mumkin.", "⛔ Монитор может вводить только интернет."),
-            reply_markup=menu,
-        )
         return
     await state.clear()
     user = await UserRepo.get_user(session, message.from_user.id)

@@ -124,13 +124,11 @@ async def operator_password_verify(message: Message, state: FSMContext, session:
     except Exception:
         pass
 
-    is_montyor = bool(settings.MONTYOR_PASSWORD and password == settings.MONTYOR_PASSWORD)
     is_operator = password == settings.OPERATOR_PASSWORD
-    if not is_montyor and not is_operator:
+    if not is_operator:
         await message.answer("Xato parol!")
         return
 
-    await state.update_data(is_montyor=is_montyor)
     await message.answer(
         "Iltimos, o'zingizning Navi username'ingizni kiriting "
         "(masalan: OUT_Isayeva, SHPD_Toshmatov):"
@@ -145,11 +143,8 @@ async def operator_navi_username(message: Message, state: FSMContext, session: A
         await message.answer("Iltimos, Navi username kiriting.")
         return
 
-    data = await state.get_data()
-    is_montyor = data.get("is_montyor", False)
     user = await UserRepo.get_user(session, message.from_user.id)
     lang = user.lang if user else "uz"
-    operator_type = OperatorType.MONTYOR if is_montyor else OperatorType.OUTSOURCE
 
     await session.execute(
         update(User)
@@ -157,15 +152,14 @@ async def operator_navi_username(message: Message, state: FSMContext, session: A
         .values(
             role=UserRole.OPERATOR,
             navi_username=navi,
-            operator_type=operator_type,
+            operator_type=OperatorType.OUTSOURCE,
         )
     )
     await session.commit()
 
-    role_label = "Montyor" if is_montyor else "Operator"
     menu, _ = await reply_menu_for_user(session, message.from_user.id)
     await message.answer(
-        tr(lang, f"Muvaffaqiyatli! Endi siz {role_label}siz.", f"Uspeshno! Vy voshli kak {role_label}."),
+        tr(lang, "Muvaffaqiyatli! Endi siz Operatorsiz.", "Uspeshno! Vy voshli kak Operator."),
         reply_markup=menu,
     )
     await state.clear()

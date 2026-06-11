@@ -1,0 +1,22 @@
+[Unit]
+Description=Telecombot Vite frontend
+After=network-online.target telecombot-backend-bot.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/root/telecombot/frontend
+EnvironmentFile=-/root/telecombot/.env
+Environment=NODE_ENV=development
+ExecStart=/bin/sh -c 'exec /usr/bin/npm start -- --host 0.0.0.0 --port "$${FRONTEND_PORT:-5177}"'
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -6,11 +6,7 @@ def operator_main_menu(lang: str = "uz", operator_type=None) -> ReplyKeyboardMar
     mob = ButtonTexts.OP_MOBILE_RU if lang == "ru" else ButtonTexts.OP_MOBILE_UZ
     lang_btn = ButtonTexts.LANG_RU if lang == "ru" else ButtonTexts.LANG_UZ
 
-    # Montyor faqat internet kiritishi mumkin
-    if operator_type == "montyor":
-        rows = [[inet], [lang_btn]]
-    else:
-        rows = [[inet, mob], [lang_btn]]
+    rows = [[inet, mob], [lang_btn]]
 
     keyboard = [[KeyboardButton(text=t) for t in row] for row in rows]
     return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)

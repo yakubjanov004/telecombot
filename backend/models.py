@@ -41,7 +41,6 @@ class UserRole(str, enum.Enum):
 
 
 class OperatorType(str, enum.Enum):
-    MONTYOR = "montyor"
     OUTSOURCE = "outsource"
     MOBILE = "mobile"
 

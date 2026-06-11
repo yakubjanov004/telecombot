@@ -8,7 +8,6 @@ class AuthState(StatesGroup):
 class OperatorAuthState(StatesGroup):
     waiting_operator_password = State()
     waiting_navi_username = State()
-    waiting_operator_type = State()
     waiting_branch = State()
 
 
