@@ -39,7 +39,12 @@ class MappingService:
         if name in self._branch_cache:
             return self._branch_cache[name]
 
-        stmt = select(Branch.id).where(Branch.name.ilike(f"{name}"))
+        stmt = (
+            select(Branch.id)
+            .where(Branch.name.ilike(f"{name}"))
+            .order_by(Branch.id)
+            .limit(1)
+        )
         result = await self.session.execute(stmt)
         branch_id = result.scalar_one_or_none()
 
@@ -62,7 +67,12 @@ class MappingService:
         if cache_key in self._dealer_cache:
             return self._dealer_cache[cache_key]
 
-        stmt = select(Dealer.id).where(Dealer.branch_id == branch_id, Dealer.name.ilike(f"{name}"))
+        stmt = (
+            select(Dealer.id)
+            .where(Dealer.branch_id == branch_id, Dealer.name.ilike(f"{name}"))
+            .order_by(Dealer.id)
+            .limit(1)
+        )
         result = await self.session.execute(stmt)
         dealer_id = result.scalar_one_or_none()
 
@@ -85,9 +95,14 @@ class MappingService:
         if cache_key in self._sale_point_cache:
             return self._sale_point_cache[cache_key]
 
-        stmt = select(SalePoint.id).where(
-            SalePoint.dealer_id == dealer_id,
-            SalePoint.name.ilike(f"{name}"),
+        stmt = (
+            select(SalePoint.id)
+            .where(
+                SalePoint.dealer_id == dealer_id,
+                SalePoint.name.ilike(f"{name}"),
+            )
+            .order_by(SalePoint.id)
+            .limit(1)
         )
         result = await self.session.execute(stmt)
         sp_id = result.scalar_one_or_none()
@@ -111,9 +126,14 @@ class MappingService:
         if cache_key in self._rate_plan_cache:
             return self._rate_plan_cache[cache_key]
 
-        stmt = select(RatePlan.id).where(
-            RatePlan.name.ilike(f"{name}"),
-            RatePlan.service_type == service_type,
+        stmt = (
+            select(RatePlan.id)
+            .where(
+                RatePlan.name.ilike(f"{name}"),
+                RatePlan.service_type == service_type,
+            )
+            .order_by(RatePlan.id)
+            .limit(1)
         )
         result = await self.session.execute(stmt)
         rp_id = result.scalar_one_or_none()
@@ -136,7 +156,12 @@ class MappingService:
         if name in self._operator_cache:
             return self._operator_cache[name]
 
-        stmt = select(User.tg_id).where(User.navi_username.ilike(f"{name}"))
+        stmt = (
+            select(User.tg_id)
+            .where(User.navi_username.ilike(f"{name}"))
+            .order_by(User.is_active.desc(), User.tg_id)
+            .limit(1)
+        )
         result = await self.session.execute(stmt)
         tg_id = result.scalar_one_or_none()
 
@@ -154,7 +179,12 @@ class MappingService:
         if cache_key in self._period_cache:
             return self._period_cache[cache_key]
 
-        stmt = select(ReportPeriod.id).where(ReportPeriod.year == year, ReportPeriod.month == month)
+        stmt = (
+            select(ReportPeriod.id)
+            .where(ReportPeriod.year == year, ReportPeriod.month == month)
+            .order_by(ReportPeriod.id)
+            .limit(1)
+        )
         result = await self.session.execute(stmt)
         p_id = result.scalar_one_or_none()
 
