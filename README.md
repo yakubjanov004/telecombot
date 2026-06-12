@@ -11,7 +11,7 @@ FastAPI backend, Telegram bot va Vite React frontenddan iborat ariza va chat pla
 - `scripts/` - Excel import va database setup yordamchi scriptlari.
 - `run.py` - backend, bot va background tasklarni bitta jarayonda ishga tushiradi.
 
-## Talablar
+## Talablar a
 
 - Python 3.11+
 - Node.js 18+
