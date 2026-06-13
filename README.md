@@ -19,7 +19,7 @@ FastAPI backend, Telegram bot va Vite React frontenddan iborat ariza va chat pla
 - Telegram bot tokeni va group/topic sozlamalari
 
 ## Sozlash
-
+#test
 1. `.env.example` asosida `.env` faylini yarating.
 2. `.env` ichida kamida `BOT_TOKEN` va `CHAT_GROUP_ID` qiymatlarini kiriting.
 3. `DATABASE_URL` yoki `POSTGRES_*` qiymatlari orqali PostgreSQL ulanishini sozlang.
