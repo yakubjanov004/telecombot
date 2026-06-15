@@ -1,14 +1,14 @@
 import logging
 
-from aiogram import F, Router
-from aiogram.filters import CommandStart
+from aiogram import Router
+from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardRemove
 from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import backend.config as settings
-from bot.core.constants import LegacyButtonTexts
+from bot.core.constants import LANG_BUTTON_TEXTS
 from backend.models import OperatorType, User, UserRole
 from backend.repositories.user_repository import UserRepo
 from bot.keyboards.auth import lang_keyboard
@@ -26,8 +26,8 @@ def tr(lang: str, uz: str, ru: str) -> str:
 def staff_login_prompt(lang: str) -> str:
     return tr(
         lang,
-        "Bot faqat operator va managerlar uchun.\nKirish uchun .operator yoki .manager yuboring.",
-        "Bot tolko dlya operatorov i menedzherov.\nDlya vhoda otpravte .operator ili .manager.",
+        "🤖 Bot faqat operator va menejerlar uchun.\n🔐 Kirish uchun /operator yoki /manager yuboring.",
+        "🤖 Бот только для операторов и менеджеров.\n🔐 Для входа отправьте /operator или /manager.",
     )
 
 
@@ -39,11 +39,7 @@ def _is_ru_choice(text: str) -> bool:
 def _is_change_language_text(text: str | None) -> bool:
     if not text:
         return False
-    return (
-        "Tilni o'zgartirish" in text
-        or LegacyButtonTexts.LANG_RU in text
-        or "\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u044f\u0437\u044b\u043a" in text
-    )
+    return text in LANG_BUTTON_TEXTS
 
 
 @router.message(CommandStart())
@@ -60,7 +56,7 @@ async def bot_start(message: Message, state: FSMContext, session: AsyncSession):
             lang="uz",
         )
         await message.answer(
-            "Iltimos, tilni tanlang:\nPozhaluysta, vyberite yazyk:",
+            "🌐 Iltimos, tilni tanlang:\n🌐 Пожалуйста, выберите язык:",
             reply_markup=lang_keyboard(),
         )
         await state.set_state(AuthState.waiting_lang)
@@ -69,7 +65,7 @@ async def bot_start(message: Message, state: FSMContext, session: AsyncSession):
     if user.role in (UserRole.OPERATOR, UserRole.MANAGER):
         menu, lang = await reply_menu_for_user(session, message.from_user.id)
         await message.answer(
-            tr(lang, "Asosiy menyu", "Glavnoe menyu"),
+            tr(lang, "🏠 Asosiy menyu", "🏠 Главное меню"),
             reply_markup=menu,
         )
         return
@@ -90,7 +86,7 @@ async def set_language(message: Message, state: FSMContext, session: AsyncSessio
     if user and user.role in (UserRole.OPERATOR, UserRole.MANAGER):
         menu, lang = await reply_menu_for_user(session, message.from_user.id)
         await message.answer(
-            tr(lang, "Til tanlandi! Asosiy menyu:", "Yazyk vybran! Glavnoe menyu:"),
+            tr(lang, "✅ Til tanlandi! Asosiy menyu:", "✅ Язык выбран! Главное меню:"),
             reply_markup=menu,
         )
     else:
@@ -105,15 +101,15 @@ async def set_language(message: Message, state: FSMContext, session: AsyncSessio
 async def change_language_request(message: Message, state: FSMContext, session: AsyncSession):
     await state.clear()
     await message.answer(
-        "Iltimos, tilni tanlang:\nPozhaluysta, vyberite yazyk:",
+        "🌐 Iltimos, tilni tanlang:\n🌐 Пожалуйста, выберите язык:",
         reply_markup=lang_keyboard(),
     )
     await state.set_state(AuthState.waiting_lang)
 
 
-@router.message(F.text == ".operator")
+@router.message(Command("operator"))
 async def operator_login_cmd(message: Message, state: FSMContext):
-    await message.answer("Operator parolini kiriting:")
+    await message.answer("🔐 Operator parolini kiriting:")
     await state.set_state(OperatorAuthState.waiting_operator_password)
 
 
@@ -127,11 +123,11 @@ async def operator_password_verify(message: Message, state: FSMContext, session:
 
     is_operator = password == settings.OPERATOR_PASSWORD
     if not is_operator:
-        await message.answer("Xato parol!")
+        await message.answer("❌ Xato parol!")
         return
 
     await message.answer(
-        "Iltimos, o'zingizning Navi username'ingizni kiriting "
+        "👤 Iltimos, o'zingizning Navi username'ingizni kiriting "
         "(masalan: OUT_Isayeva, SHPD_Toshmatov):"
     )
     await state.set_state(OperatorAuthState.waiting_navi_username)
@@ -141,7 +137,7 @@ async def operator_password_verify(message: Message, state: FSMContext, session:
 async def operator_navi_username(message: Message, state: FSMContext, session: AsyncSession):
     navi = (message.text or "").strip()
     if not navi:
-        await message.answer("Iltimos, Navi username kiriting.")
+        await message.answer("👤 Iltimos, Navi username kiriting.")
         return
 
     user = await UserRepo.get_user(session, message.from_user.id)
@@ -160,15 +156,15 @@ async def operator_navi_username(message: Message, state: FSMContext, session: A
 
     menu, _ = await reply_menu_for_user(session, message.from_user.id)
     await message.answer(
-        tr(lang, "Muvaffaqiyatli! Endi siz Operatorsiz.", "Uspeshno! Vy voshli kak Operator."),
+        tr(lang, "✅ Muvaffaqiyatli! Endi siz operatorsiz.", "✅ Успешно! Теперь вы оператор."),
         reply_markup=menu,
     )
     await state.clear()
 
 
-@router.message(F.text == ".manager")
+@router.message(Command("manager"))
 async def manager_login_cmd(message: Message, state: FSMContext):
-    await message.answer("Manager parolini kiriting:")
+    await message.answer("🔐 Menejer parolini kiriting:")
     await state.set_state(ManagerAuthState.waiting_manager_password)
 
 
@@ -181,7 +177,7 @@ async def manager_password_verify(message: Message, state: FSMContext, session: 
         pass
 
     if password != settings.MANAGER_PASSWORD:
-        await message.answer("Xato parol!")
+        await message.answer("❌ Xato parol!")
         return
 
     user = await UserRepo.get_user(session, message.from_user.id)
@@ -194,7 +190,7 @@ async def manager_password_verify(message: Message, state: FSMContext, session: 
 
     menu, _ = await reply_menu_for_user(session, message.from_user.id)
     await message.answer(
-        tr(lang, "Muvaffaqiyatli! Endi siz Managersiz.", "Uspeshno! Teper vy menedzher."),
+        tr(lang, "✅ Muvaffaqiyatli! Endi siz menejersiz.", "✅ Успешно! Теперь вы менеджер."),
         reply_markup=menu,
     )
     await state.clear()

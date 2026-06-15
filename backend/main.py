@@ -352,7 +352,7 @@ async def close_client_session(session_id: str, db: AsyncSession = Depends(get_d
         {
             "type": "system",
             "status": "expired",
-            "message": "Chat tugatildi. Yangi ariza berishingiz mumkin.",
+            "message": "✅ Chat tugatildi. Yangi ariza berishingiz mumkin.",
         },
     )
 
@@ -380,11 +380,11 @@ async def websocket_chat(websocket: WebSocket, session_id: str):
             chat = ChatService(db)
             session = await chat.get_session(session_id)
             if not session:
-                await ws_manager.send_json(session_id, {"type": "error", "message": "Session not found"}, websocket=websocket)
+                await ws_manager.send_json(session_id, {"type": "error", "message": "⚠️ Sessiya topilmadi"}, websocket=websocket)
                 await _close_websocket(websocket)
                 return
             if (not session.is_active) or session.topic_status in [TopicStatusEnum.EXPIRED, TopicStatusEnum.DELETED]:
-                await ws_manager.send_json(session_id, {"type": "system", "status": "expired", "message": "Chat sessiyasi tugagan. Yangi ariza bering."}, websocket=websocket)
+                await ws_manager.send_json(session_id, {"type": "system", "status": "expired", "message": "⏳ Chat sessiyasi tugagan. Yangi ariza bering."}, websocket=websocket)
                 await _close_websocket(websocket)
                 return
             messages = await chat.get_messages(session_id)
@@ -417,18 +417,18 @@ async def websocket_chat(websocket: WebSocket, session_id: str):
                 chat = ChatService(db)
                 session = await chat.get_session(session_id)
                 if not session:
-                    await ws_manager.send_json(session_id, {"type": "error", "message": "Session not found"}, websocket=websocket)
+                    await ws_manager.send_json(session_id, {"type": "error", "message": "⚠️ Sessiya topilmadi"}, websocket=websocket)
                     continue
                 result = await chat.send_client_message(session_id, client_msg, media_url=media_url)
                 if not result.get("ok"):
                     if result.get("error") == "rate_limited":
                         retry_after = int(result.get("retry_after") or 5)
-                        await ws_manager.send_json(session_id, {"type": "system", "status": "rate_limit", "retry_after": retry_after, "message": f"Iltimos {retry_after} soniya kuting."}, websocket=websocket)
+                        await ws_manager.send_json(session_id, {"type": "system", "status": "rate_limit", "retry_after": retry_after, "message": f"⏳ Iltimos, {retry_after} soniya kuting."}, websocket=websocket)
                         continue
                     if result.get("error") == "session_not_found":
-                        await ws_manager.send_json(session_id, {"type": "error", "message": "Session not found"}, websocket=websocket)
+                        await ws_manager.send_json(session_id, {"type": "error", "message": "⚠️ Sessiya topilmadi"}, websocket=websocket)
                         continue
-                    await ws_manager.send_json(session_id, {"type": "error", "message": "Xatolik yuz berdi"}, websocket=websocket)
+                    await ws_manager.send_json(session_id, {"type": "error", "message": "❌ Xatolik yuz berdi"}, websocket=websocket)
                     continue
     except WebSocketDisconnect:
         pass
@@ -455,7 +455,7 @@ async def operator_message(data: OperatorMessage, db: AsyncSession = Depends(get
             {
                 "type": "system",
                 "status": "claimed",
-                "message": "Operator chatga ulandi. Javoblar shu yerga keladi.",
+                "message": "👤 Operator chatga ulandi. Javoblar shu yerga keladi.",
             },
         )
         return {"status": "success" if online else "sent", "message": "ok"}

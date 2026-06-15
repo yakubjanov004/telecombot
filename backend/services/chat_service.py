@@ -61,7 +61,7 @@ class ChatService:
                     "application_type": existing.application_type.value if existing.application_type else None,
                     "application_id": existing.application_id,
                     "topic_status": existing.topic_status.value if existing.topic_status else None,
-                    "message": "Existing session returned"
+                    "message": "✅ Existing session returned"
                 }
         new_id = str(uuid.uuid4())[:8]
         await self.session_repo.create(new_id, client_name, phone, application_type, application_id)
@@ -71,7 +71,7 @@ class ChatService:
             "phone": phone,
             "application_type": application_type,
             "application_id": application_id,
-            "message": "Session created successfully"
+            "message": "✅ Session created successfully"
         }
 
     async def create_topic(self, session_id: str, client_name: str, application_type: str, application_id: int) -> Optional[int]:
@@ -106,7 +106,7 @@ class ChatService:
                         msg_text += f"<b>MSISDN:</b> {app.msisdn or ''}\n"
                         msg_text += f"<b>RATE_PLAN_FIRST_CONNECTION:</b> {app.rate_plan_first_connection or app.selected_tariff_code or ''}\n"
                         msg_text += f"<b>Branches:</b> {app.branches or ''}\n"
-                msg_text += f"\n<i>Mijoz operator ulanishini kutmoqda...</i>"
+                msg_text += f"\n<i>⏳ Mijoz operator ulanishini kutmoqda...</i>"
                 
                 reply_markup = self.create_claim_button(session_id)
                 msg_id = await self.telegram.send_message(msg_text, topic_id, reply_markup=reply_markup)
@@ -292,15 +292,15 @@ class ChatService:
         return {
             "inline_keyboard": [
                 [
-                    {"text": "Qabul qilish ✅", "callback_data": f"claim_{session_id}"},
-                    {"text": "Chatni tugatish ❌", "callback_data": f"end_{session_id}"}
+                    {"text": "✅ Qabul qilish", "callback_data": f"claim_{session_id}"},
+                    {"text": "🛑 Chatni tugatish", "callback_data": f"end_{session_id}"}
                 ]
             ]
         }
 
     def create_operator_keyboard(self) -> dict:
         return {
-            "keyboard": [[{"text": "Chatni tugatish ✅"}]],
+            "keyboard": [[{"text": "🛑 Chatni tugatish"}]],
             "resize_keyboard": True,
             "one_time_keyboard": False,
         }
@@ -308,7 +308,7 @@ class ChatService:
     def create_end_button(self, session_id: str) -> dict:
         return {
             "inline_keyboard": [
-                [{"text": "Chatni tugatish", "callback_data": f"end_{session_id}"}]
+                [{"text": "🛑 Chatni tugatish", "callback_data": f"end_{session_id}"}]
             ]
         }
 
@@ -320,7 +320,7 @@ class ChatService:
 
     async def get_auto_reply(self, message: str) -> Optional[str]:
         if not message:
-            return "Rasm yoki fayl qabul qilindi! Operatorimiz tez orada ko'rib chiqadi."
+            return "📎 Rasm yoki fayl qabul qilindi! Operatorimiz tez orada ko'rib chiqadi."
             
         lower_msg = message.lower().strip()
         greetings = (
@@ -333,26 +333,26 @@ class ChatService:
             "hi",
         )
         if any(greet in lower_msg for greet in greetings):
-            return "Assalom alaykum! Savolingizni yozing, operator tez orada ulanadi."
+            return "👋 Assalom alaykum! Savolingizni yozing, operator tez orada ulanadi."
 
         templates = [
-            (["narx", "narxi", "qancha", "necha", "som", "so'm"], "Narx paketga qarab. Boshlang'ich tariflar 50 000 so'mdan."),
-            (["tarif", "paket", "reja"], "Tariflar bo'yicha bir nechta variant bor, operator mosini aytadi."),
-            (["qachon", "qachon ulanasiz", "qachon kelasiz", "o'rnatish", "ulanish", "montaj"], "Ulanish odatda 1-3 ish kuni, operator vaqtni kelishadi."),
-            (["hujjat", "pasport", "id", "dokument", "shartnoma"], "Pasport/ID va manzil kerak bo'ladi, operator ro'yxatini aytadi."),
-            (["manzil", "hudud", "qamrov", "xizmat bormi", "mavjudmi"], "Hududga qarab mavjudlik tekshiriladi, manzilingizni yozing."),
-            (["tezlik", "mbps", "megabit", "ping"], "Tezlik tarifga bog'liq, operator aniq variantlarni aytadi."),
-            (["router", "modem", "wi-fi", "wifi"], "Router/modem bo'yicha operator yo'naltiradi yoki o'zingizniki bo'lishi mumkin."),
-            (["to'lov", "tolov", "oylik", "abonent"], "To'lov shartlari tarifga qarab, operator hisob-kitob qiladi."),
-            (["ariza", "status", "holat", "qanday ketayapti"], "Arizangiz holati tekshiriladi, tez orada javob beramiz."),
-            (["operator", "konsultant", "odam", "jonli"], "Operator ulanmoqda, iltimos kuting."),
-            (["mobil", "sim", "raqam", "nomer"], "Mobil raqam bo'yicha variantlar bor, operator tushuntiradi."),
-            (["internet", "provayder"], "Internet xizmati bo'yicha ma'lumotni operator aniq qiladi."),
+            (["narx", "narxi", "qancha", "necha", "som", "so'm"], "💳 Narx paketga qarab. Boshlang'ich tariflar 50 000 so'mdan."),
+            (["tarif", "paket", "reja"], "📶 Tariflar bo'yicha bir nechta variant bor, operator mosini aytadi."),
+            (["qachon", "qachon ulanasiz", "qachon kelasiz", "o'rnatish", "ulanish", "montaj"], "🗓 Ulanish odatda 1-3 ish kuni, operator vaqtni kelishadi."),
+            (["hujjat", "pasport", "id", "dokument", "shartnoma"], "🪪 Pasport/ID va manzil kerak bo'ladi, operator ro'yxatini aytadi."),
+            (["manzil", "hudud", "qamrov", "xizmat bormi", "mavjudmi"], "📍 Hududga qarab mavjudlik tekshiriladi, manzilingizni yozing."),
+            (["tezlik", "mbps", "megabit", "ping"], "⚡ Tezlik tarifga bog'liq, operator aniq variantlarni aytadi."),
+            (["router", "modem", "wi-fi", "wifi"], "📡 Router/modem bo'yicha operator yo'naltiradi yoki o'zingizniki bo'lishi mumkin."),
+            (["to'lov", "tolov", "oylik", "abonent"], "💳 To'lov shartlari tarifga qarab, operator hisob-kitob qiladi."),
+            (["ariza", "status", "holat", "qanday ketayapti"], "📋 Arizangiz holati tekshiriladi, tez orada javob beramiz."),
+            (["operator", "konsultant", "odam", "jonli"], "👤 Operator ulanmoqda, iltimos kuting."),
+            (["mobil", "sim", "raqam", "nomer"], "📱 Mobil raqam bo'yicha variantlar bor, operator tushuntiradi."),
+            (["internet", "provayder"], "🌐 Internet xizmati bo'yicha ma'lumotni operator aniq qiladi."),
         ]
         for keys, reply in templates:
             if any(key in lower_msg for key in keys):
                 return reply
-        return "Savolingiz uchun rahmat! Operator tez orada javob beradi."
+        return "✅ Savolingiz uchun rahmat! Operator tez orada javob beradi."
 
     async def send_welcome_message(self, session_id: str):
         session = await self.session_repo.get_by_session_id(session_id)
@@ -364,7 +364,7 @@ class ChatService:
             return
 
         welcome_text = (
-            "Arizangiz qabul qilindi. Operator ma'lumotlarni ko'rib chiqmoqda. "
+            "✅ Arizangiz qabul qilindi. Operator ma'lumotlarni ko'rib chiqmoqda. "
             "Savolingiz bo'lsa, shu chatga yozing."
         )
 

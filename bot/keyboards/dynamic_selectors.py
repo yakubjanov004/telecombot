@@ -44,14 +44,14 @@ def _append_page_buttons(
     if current_page > 0:
         nav.append(
             InlineKeyboardButton(
-                text="< Oldingi",
+                text="⬅️ Oldingi",
                 callback_data=f"sel:{kind}_page:{current_page - 1}",
             )
         )
     if current_page < max_page:
         nav.append(
             InlineKeyboardButton(
-                text="Keyingi >",
+                text="Keyingi ➡️",
                 callback_data=f"sel:{kind}_page:{current_page + 1}",
             )
         )
@@ -67,7 +67,7 @@ async def branch_selector(
     total = (await session.execute(total_stmt)).scalar_one() or 0
     if total == 0:
         buttons = [
-            [InlineKeyboardButton(text="— Filial yo'q —", callback_data="sel:branch:0")]
+            [InlineKeyboardButton(text="🏢 Filial yo'q", callback_data="sel:branch:0")]
         ]
         return InlineKeyboardMarkup(inline_keyboard=buttons)
 
@@ -103,7 +103,7 @@ async def dealer_selector(
     total = (await session.execute(total_stmt)).scalar_one() or 0
     if total == 0:
         buttons = [
-            [InlineKeyboardButton(text="— Diler yo'q —", callback_data="sel:dealer:0")]
+            [InlineKeyboardButton(text="🏪 Diler yo'q", callback_data="sel:dealer:0")]
         ]
         return InlineKeyboardMarkup(inline_keyboard=buttons)
 
@@ -141,7 +141,7 @@ async def rate_plan_selector(session: AsyncSession, service_type: ServiceType) -
     ]
     if not buttons:
         buttons = [
-            [InlineKeyboardButton(text="— Tarif yo'q —", callback_data="sel:rateplan:0")]
+            [InlineKeyboardButton(text="📶 Tarif yo'q", callback_data="sel:rateplan:0")]
         ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
@@ -157,6 +157,6 @@ async def period_selector(session: AsyncSession) -> InlineKeyboardMarkup:
     ]
     if not buttons:
         buttons = [
-            [InlineKeyboardButton(text="— Davr yo'q —", callback_data="sel:period:0")]
+            [InlineKeyboardButton(text="📅 Davr yo'q", callback_data="sel:period:0")]
         ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)

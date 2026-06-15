@@ -54,7 +54,7 @@ async def _cleanup_closed_topic(
         from backend.adapters.websocket_manager import ws_manager
         await ws_manager.send_json(
             chat_session.session_id, 
-            {"type": "system", "status": "expired", "message": "Chat tugatildi. Yangi ariza bering."}
+            {"type": "system", "status": "expired", "message": "✅ Chat tugatildi. Yangi ariza bering."}
         )
     except Exception as ws_err:
         logger.warning(f"Failed to notify web client: {ws_err}")
@@ -86,11 +86,11 @@ async def operator_close_chat(callback: CallbackQuery, session: AsyncSession) ->
     topic_id = callback.message.message_thread_id
     chat_session = await ChatRepo.get_session_by_topic(session, topic_id)
     if not chat_session:
-        await callback.answer("Chat topilmadi!", show_alert=True)
+        await callback.answer("⚠️ Chat topilmadi!", show_alert=True)
         return
 
     await _cleanup_closed_topic(session, chat_session)
-    await callback.answer("Chat yopildi!")
+    await callback.answer("✅ Chat yopildi!")
 
 
 @router.callback_query(F.data.startswith("claim_"))
@@ -108,11 +108,11 @@ async def handle_claim_callback(callback: CallbackQuery, session: AsyncSession):
             chat_session = await repo.get_by_session_id(session_id)
             
         if not chat_session:
-            await callback.answer("Session topilmadi!", show_alert=True)
+            await callback.answer("⚠️ Sessiya topilmadi!", show_alert=True)
             return
             
         if chat_session.claimed_by_operator_id:
-            await callback.answer("Bu chat allaqachon qabul qilingan!", show_alert=True)
+            await callback.answer("⚠️ Bu chat allaqachon qabul qilingan!", show_alert=True)
             try:
                 await bot.edit_message_reply_markup(
                     chat_id=callback.message.chat.id,
@@ -140,13 +140,13 @@ async def handle_claim_callback(callback: CallbackQuery, session: AsyncSession):
         if not chat_session.client_tg_id:
             await send_to_backend(session_id, "__operator_claimed__")
         
-        await callback.answer(f"Chat {operator_name} tomonidan qabul qilindi!")
+        await callback.answer(f"✅ Chat {operator_name} tomonidan qabul qilindi!")
         try:
             await bot.edit_message_reply_markup(
                 chat_id=callback.message.chat.id,
                 message_id=callback.message.message_id,
                 reply_markup=InlineKeyboardMarkup(
-                    inline_keyboard=[[InlineKeyboardButton(text="Chatni tugatish", callback_data=f"end_{session_id}")]]
+                    inline_keyboard=[[InlineKeyboardButton(text="🛑 Chatni tugatish", callback_data=f"end_{session_id}")]]
                 ),
             )
         except Exception as e:
@@ -154,7 +154,7 @@ async def handle_claim_callback(callback: CallbackQuery, session: AsyncSession):
 
     except Exception as e:
         logger.error(f"Claim callback error: {e}")
-        await callback.answer("Xato yuz berdi!", show_alert=True)
+        await callback.answer("❌ Xato yuz berdi!", show_alert=True)
 
 
 @router.callback_query(F.data.startswith("end_"))
@@ -167,19 +167,19 @@ async def handle_end_callback(callback: CallbackQuery, session: AsyncSession):
         repo = SessionRepository(session)
         chat_session = await repo.get_by_session_id(session_id)
         if not chat_session:
-            await callback.answer("Session topilmadi!", show_alert=True)
+            await callback.answer("⚠️ Sessiya topilmadi!", show_alert=True)
             return
 
         if chat_session.claimed_by_operator_id and chat_session.claimed_by_operator_id != operator_id:
-            await callback.answer("Bu chat siz tomonidan qabul qilinmagan!", show_alert=True)
+            await callback.answer("⚠️ Bu chat siz tomonidan qabul qilinmagan!", show_alert=True)
             return
 
         await _cleanup_closed_topic(session, chat_session)
-        await callback.answer("Chat tugatildi!")
+        await callback.answer("✅ Chat tugatildi!")
 
     except Exception as e:
         logger.error(f"End callback error: {e}")
-        await callback.answer("Xato yuz berdi!", show_alert=True)
+        await callback.answer("❌ Xato yuz berdi!", show_alert=True)
 
 
 @router.message(
@@ -222,7 +222,7 @@ async def relay_operator_to_client(message: Message, session: AsyncSession) -> N
     # ─── TEXT MESSAGE RELAY ───
     if message.text:
         lower_text = message.text.strip().lower()
-        if lower_text in ("chatni tugatish ✅", "chatni tugatish", "/end"):
+        if lower_text in ("🛑 chatni tugatish", "chatni tugatish ✅", "chatni tugatish", "/end"):
             await _cleanup_closed_topic(session, chat_session)
             return
 

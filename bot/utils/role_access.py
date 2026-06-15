@@ -22,8 +22,8 @@ async def ensure_roles(
     await message.answer(
         tr(
             lang,
-            "⛔ Bu bo'lim uchun ruxsat yo'q. .operator yoki .manager orqali kiring.",
-            "⛔ Нет доступа. Войдите через .operator или .manager.",
+            "⛔ Bu bo'lim uchun ruxsat yo'q. /operator yoki /manager orqali kiring.",
+            "⛔ Нет доступа. Войдите через /operator или /manager.",
         )
     )
     return False

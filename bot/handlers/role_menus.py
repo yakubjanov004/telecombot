@@ -4,7 +4,14 @@ from aiogram.fsm.context import FSMContext
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, desc
 
-from bot.core.constants import ButtonTexts, LegacyButtonTexts
+from bot.core.constants import (
+    MGR_COMPARE_TEXTS,
+    MGR_EXPORT_TEXTS,
+    MGR_STATS_TEXTS,
+    OPERATOR_CANCEL_TEXTS,
+    OP_INTERNET_TEXTS,
+    OP_MOBILE_TEXTS,
+)
 from bot.keyboards.dynamic_selectors import branch_selector, dealer_selector, rate_plan_selector, period_selector
 from bot.keyboards.roles import cancel_keyboard
 from bot.utils.role_menu import reply_menu_for_user
@@ -48,7 +55,7 @@ def _parse_callback_id(call_data: str, prefix: str) -> int | None:
 # ================================
 # CANCEL BUTTON
 # ================================
-@router.message(F.text.in_([ButtonTexts.OPERATOR_CANCEL_UZ, ButtonTexts.OPERATOR_CANCEL_RU, LegacyButtonTexts.OPERATOR_CANCEL_RU]))
+@router.message(F.text.in_(OPERATOR_CANCEL_TEXTS))
 async def cancel_handler(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_SALES_ROLES):
         return
@@ -64,7 +71,7 @@ async def cancel_handler(message: Message, state: FSMContext, session: AsyncSess
 # ================================
 # INTERNET (шпд): Filial → Bo'lim → MSISDN → Tarif
 # ================================
-@router.message(F.text.in_([ButtonTexts.OP_INTERNET_UZ, ButtonTexts.OP_INTERNET_RU, LegacyButtonTexts.OP_INTERNET_RU]))
+@router.message(F.text.in_(OP_INTERNET_TEXTS))
 async def start_internet_sale(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_SALES_ROLES):
         return
@@ -82,7 +89,7 @@ async def start_internet_sale(message: Message, state: FSMContext, session: Asyn
 async def internet_branch_page_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     page = _parse_callback_id(call.data, "sel:branch_page:")
     if page is None:
-        await call.answer("Noto'g'ri sahifa kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri sahifa kodi", show_alert=True)
         return
     kb = await branch_selector(session, page=page)
     await call.message.edit_text("🏢 Filialni tanlang:", reply_markup=kb)
@@ -92,10 +99,10 @@ async def internet_branch_page_selected(call: CallbackQuery, state: FSMContext, 
 async def internet_branch_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     branch_id = _parse_callback_id(call.data, "sel:branch:")
     if branch_id is None:
-        await call.answer("Noto'g'ri filial kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri filial kodi", show_alert=True)
         return
     if branch_id == 0:
-        await call.answer("Filial yo'q", show_alert=True)
+        await call.answer("🏢 Filial yo'q", show_alert=True)
         return
     await state.update_data(branch_id=branch_id)
     user = await UserRepo.get_user(session, call.from_user.id)
@@ -112,7 +119,7 @@ async def internet_branch_selected(call: CallbackQuery, state: FSMContext, sessi
 async def internet_department(message: Message, state: FSMContext, session: AsyncSession):
     dept = (message.text or "").strip()
     if not dept:
-        await message.answer("Iltimos, bo'lim (DEPARTMENTS) nomini kiriting.")
+        await message.answer("⚠️ Iltimos, bo'lim (DEPARTMENTS) nomini kiriting.")
         return
     await state.update_data(department_name_raw=dept)
     user = await UserRepo.get_user(session, message.from_user.id)
@@ -128,7 +135,7 @@ async def internet_department(message: Message, state: FSMContext, session: Asyn
 async def internet_msisdn(message: Message, state: FSMContext, session: AsyncSession):
     msisdn = message.text.strip()
     if not msisdn:
-        await message.answer("Iltimos, MSISDN kiriting.")
+        await message.answer("⚠️ Iltimos, MSISDN kiriting.")
         return
     await state.update_data(msisdn=msisdn)
     kb = await rate_plan_selector(session, ServiceType.INTERNET)
@@ -144,7 +151,7 @@ async def internet_msisdn(message: Message, state: FSMContext, session: AsyncSes
 async def internet_rate_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     rp_id = _parse_callback_id(call.data, "sel:rateplan:")
     if rp_id is None:
-        await call.answer("Noto'g'ri tarif kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri tarif kodi", show_alert=True)
         return
     await state.update_data(rate_plan_id=rp_id if rp_id > 0 else None)
     await call.message.delete()
@@ -169,7 +176,7 @@ async def _save_internet_sale(message: Message, state: FSMContext, session: Asyn
 # ================================
 # MOBILE (номер 1): Diler → Filial → MSISDN → Tarif
 # ================================
-@router.message(F.text.in_([ButtonTexts.OP_MOBILE_UZ, ButtonTexts.OP_MOBILE_RU, LegacyButtonTexts.OP_MOBILE_RU]))
+@router.message(F.text.in_(OP_MOBILE_TEXTS))
 async def start_mobile_sale(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_SALES_ROLES):
         return
@@ -187,7 +194,7 @@ async def start_mobile_sale(message: Message, state: FSMContext, session: AsyncS
 async def mobile_dealer_page_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     page = _parse_callback_id(call.data, "sel:dealer_page:")
     if page is None:
-        await call.answer("Noto'g'ri sahifa kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri sahifa kodi", show_alert=True)
         return
     kb = await dealer_selector(session, page=page)
     await call.message.edit_text("📱 Dilerni tanlang:", reply_markup=kb)
@@ -197,14 +204,14 @@ async def mobile_dealer_page_selected(call: CallbackQuery, state: FSMContext, se
 async def mobile_dealer_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     dealer_id = _parse_callback_id(call.data, "sel:dealer:")
     if dealer_id is None:
-        await call.answer("Noto'g'ri diler kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri diler kodi", show_alert=True)
         return
     if dealer_id == 0:
-        await call.answer("Diler yo'q", show_alert=True)
+        await call.answer("🏪 Diler yo'q", show_alert=True)
         return
     dealer = await session.get(Dealer, dealer_id)
     if not dealer:
-        await call.answer("Diler topilmadi", show_alert=True)
+        await call.answer("⚠️ Diler topilmadi", show_alert=True)
         return
 
     user = await UserRepo.get_user(session, call.from_user.id)
@@ -232,7 +239,7 @@ async def mobile_dealer_selected(call: CallbackQuery, state: FSMContext, session
 async def mobile_branch_page_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     page = _parse_callback_id(call.data, "sel:branch_page:")
     if page is None:
-        await call.answer("Noto'g'ri sahifa kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri sahifa kodi", show_alert=True)
         return
     kb = await branch_selector(session, page=page)
     await call.message.edit_text("🏢 Filialni tanlang:", reply_markup=kb)
@@ -242,10 +249,10 @@ async def mobile_branch_page_selected(call: CallbackQuery, state: FSMContext, se
 async def mobile_branch_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     branch_id = _parse_callback_id(call.data, "sel:branch:")
     if branch_id is None:
-        await call.answer("Noto'g'ri filial kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri filial kodi", show_alert=True)
         return
     if branch_id == 0:
-        await call.answer("Filial yo'q", show_alert=True)
+        await call.answer("🏢 Filial yo'q", show_alert=True)
         return
     await state.update_data(branch_id=branch_id)
     user = await UserRepo.get_user(session, call.from_user.id)
@@ -261,7 +268,7 @@ async def mobile_branch_selected(call: CallbackQuery, state: FSMContext, session
 async def mobile_msisdn(message: Message, state: FSMContext, session: AsyncSession):
     msisdn = message.text.strip()
     if not msisdn:
-        await message.answer("Iltimos, MSISDN kiriting.")
+        await message.answer("⚠️ Iltimos, MSISDN kiriting.")
         return
     await state.update_data(msisdn=msisdn)
     kb = await rate_plan_selector(session, ServiceType.MOBILE)
@@ -277,7 +284,7 @@ async def mobile_msisdn(message: Message, state: FSMContext, session: AsyncSessi
 async def mobile_rate_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     rp_id = _parse_callback_id(call.data, "sel:rateplan:")
     if rp_id is None:
-        await call.answer("Noto'g'ri tarif kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri tarif kodi", show_alert=True)
         return
     await state.update_data(rate_plan_id=rp_id if rp_id > 0 else None)
     await call.message.delete()
@@ -302,7 +309,7 @@ async def _save_mobile_sale(message: Message, state: FSMContext, session: AsyncS
 # ================================
 # MANAGER STATS (Batafsil statistika)
 # ================================
-@router.message(F.text.in_([ButtonTexts.MGR_STATS_UZ, ButtonTexts.MGR_STATS_RU]))
+@router.message(F.text.in_(MGR_STATS_TEXTS))
 async def manager_stats(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_MANAGER_ONLY):
         return
@@ -315,10 +322,10 @@ async def manager_stats(message: Message, state: FSMContext, session: AsyncSessi
 async def stats_period_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     period_id = _parse_callback_id(call.data, "sel:period:")
     if period_id is None:
-        await call.answer("Noto'g'ri davr kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri davr kodi", show_alert=True)
         return
     if period_id == 0:
-        await call.answer("Davr yo'q!", show_alert=True)
+        await call.answer("📅 Davr yo'q!", show_alert=True)
         return
         
     stmt = select(ReportPeriod).where(ReportPeriod.id == period_id)
@@ -445,7 +452,7 @@ async def stats_period_selected(call: CallbackQuery, state: FSMContext, session:
 # ================================
 # MANAGER EXPORT
 # ================================
-@router.message(F.text.in_([ButtonTexts.MGR_EXPORT_UZ, ButtonTexts.MGR_EXPORT_RU]))
+@router.message(F.text.in_(MGR_EXPORT_TEXTS))
 async def manager_export(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_MANAGER_ONLY):
         return
@@ -458,10 +465,10 @@ async def manager_export(message: Message, state: FSMContext, session: AsyncSess
 async def export_period_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     period_id = _parse_callback_id(call.data, "sel:period:")
     if period_id is None:
-        await call.answer("Noto'g'ri davr kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri davr kodi", show_alert=True)
         return
     if period_id == 0:
-         await call.answer("Davr yo'q!", show_alert=True)
+         await call.answer("📅 Davr yo'q!", show_alert=True)
          return
          
     await call.message.edit_text("⏳ Excel fayli shakllantirilmoqda...")
@@ -469,7 +476,7 @@ async def export_period_selected(call: CallbackQuery, state: FSMContext, session
     from aiogram.types import FSInputFile
     doc = FSInputFile(export_path)
     menu, _ = await reply_menu_for_user(session, call.from_user.id)
-    await call.message.answer_document(doc, caption="Eksport tayyor!", reply_markup=menu)
+    await call.message.answer_document(doc, caption="✅ Eksport tayyor!", reply_markup=menu)
     await call.message.delete()
     await state.clear()
 
@@ -477,7 +484,7 @@ async def export_period_selected(call: CallbackQuery, state: FSMContext, session
 # ================================
 # MANAGER COMPARE & PERIODS
 # ================================
-@router.message(F.text.in_([ButtonTexts.MGR_COMPARE_UZ, ButtonTexts.MGR_COMPARE_RU, LegacyButtonTexts.MGR_COMPARE_RU]))
+@router.message(F.text.in_(MGR_COMPARE_TEXTS))
 async def manager_compare(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_MANAGER_ONLY):
         return
@@ -493,10 +500,10 @@ async def manager_compare(message: Message, state: FSMContext, session: AsyncSes
 async def compare_first_period_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     period_id = _parse_callback_id(call.data, "sel:period:")
     if period_id is None:
-        await call.answer("Noto'g'ri davr kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri davr kodi", show_alert=True)
         return
     if period_id == 0:
-         await call.answer("Davr yo'q!", show_alert=True)
+         await call.answer("📅 Davr yo'q!", show_alert=True)
          return
     await state.update_data(p1_id=period_id)
     kb = await period_selector(session)
@@ -507,17 +514,17 @@ async def compare_first_period_selected(call: CallbackQuery, state: FSMContext, 
 async def compare_second_period_selected(call: CallbackQuery, state: FSMContext, session: AsyncSession):
     p2_id = _parse_callback_id(call.data, "sel:period:")
     if p2_id is None:
-        await call.answer("Noto'g'ri davr kodi", show_alert=True)
+        await call.answer("⚠️ Noto'g'ri davr kodi", show_alert=True)
         return
     if p2_id == 0:
-         await call.answer("Davr yo'q!", show_alert=True)
+         await call.answer("📅 Davr yo'q!", show_alert=True)
          return
          
     data = await state.get_data()
     p1_id = data.get('p1_id')
     
     if p1_id == p2_id:
-        await call.answer("Bir xil oyni o'z-o'zi bilan taqqoslab bo'lmaydi! Boshqa oy tanlang.", show_alert=True)
+        await call.answer("⚠️ Bir xil oyni o'z-o'zi bilan taqqoslab bo'lmaydi! Boshqa oy tanlang.", show_alert=True)
         return
         
     await call.message.edit_text("⏳ Taqqoslanmoqda...")
@@ -526,7 +533,7 @@ async def compare_second_period_selected(call: CallbackQuery, state: FSMContext,
     periods = (await session.execute(stmt)).scalars().all()
     
     if len(periods) < 2:
-        await call.answer("Xatolik: Davrlar topilmadi.", show_alert=True)
+        await call.answer("⚠️ Xatolik: Davrlar topilmadi.", show_alert=True)
         await state.clear()
         return
         
