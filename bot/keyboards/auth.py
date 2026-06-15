@@ -6,7 +6,7 @@ def lang_keyboard() -> ReplyKeyboardMarkup:
         keyboard=[
             [
                 KeyboardButton(text="O'zbekcha"),
-                KeyboardButton(text="Russkiy"),
+                KeyboardButton(text="Русский"),
             ]
         ],
         resize_keyboard=True,

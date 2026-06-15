@@ -8,6 +8,7 @@ from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import backend.config as settings
+from bot.core.constants import LegacyButtonTexts
 from backend.models import OperatorType, User, UserRole
 from backend.repositories.user_repository import UserRepo
 from bot.keyboards.auth import lang_keyboard
@@ -40,7 +41,7 @@ def _is_change_language_text(text: str | None) -> bool:
         return False
     return (
         "Tilni o'zgartirish" in text
-        or "Izmenit yazyk" in text
+        or LegacyButtonTexts.LANG_RU in text
         or "\u0418\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u044f\u0437\u044b\u043a" in text
     )
 

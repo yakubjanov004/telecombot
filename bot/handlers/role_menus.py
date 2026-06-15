@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, desc
 
-from bot.core.constants import ButtonTexts
+from bot.core.constants import ButtonTexts, LegacyButtonTexts
 from bot.keyboards.dynamic_selectors import branch_selector, dealer_selector, rate_plan_selector, period_selector
 from bot.keyboards.roles import cancel_keyboard
 from bot.utils.role_menu import reply_menu_for_user
@@ -48,7 +48,7 @@ def _parse_callback_id(call_data: str, prefix: str) -> int | None:
 # ================================
 # CANCEL BUTTON
 # ================================
-@router.message(F.text.in_([ButtonTexts.OPERATOR_CANCEL_UZ, ButtonTexts.OPERATOR_CANCEL_RU]))
+@router.message(F.text.in_([ButtonTexts.OPERATOR_CANCEL_UZ, ButtonTexts.OPERATOR_CANCEL_RU, LegacyButtonTexts.OPERATOR_CANCEL_RU]))
 async def cancel_handler(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_SALES_ROLES):
         return
@@ -64,7 +64,7 @@ async def cancel_handler(message: Message, state: FSMContext, session: AsyncSess
 # ================================
 # INTERNET (шпд): Filial → Bo'lim → MSISDN → Tarif
 # ================================
-@router.message(F.text.in_([ButtonTexts.OP_INTERNET_UZ, ButtonTexts.OP_INTERNET_RU]))
+@router.message(F.text.in_([ButtonTexts.OP_INTERNET_UZ, ButtonTexts.OP_INTERNET_RU, LegacyButtonTexts.OP_INTERNET_RU]))
 async def start_internet_sale(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_SALES_ROLES):
         return
@@ -169,7 +169,7 @@ async def _save_internet_sale(message: Message, state: FSMContext, session: Asyn
 # ================================
 # MOBILE (номер 1): Diler → Filial → MSISDN → Tarif
 # ================================
-@router.message(F.text.in_([ButtonTexts.OP_MOBILE_UZ, ButtonTexts.OP_MOBILE_RU]))
+@router.message(F.text.in_([ButtonTexts.OP_MOBILE_UZ, ButtonTexts.OP_MOBILE_RU, LegacyButtonTexts.OP_MOBILE_RU]))
 async def start_mobile_sale(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_SALES_ROLES):
         return
@@ -477,7 +477,7 @@ async def export_period_selected(call: CallbackQuery, state: FSMContext, session
 # ================================
 # MANAGER COMPARE & PERIODS
 # ================================
-@router.message(F.text.in_([ButtonTexts.MGR_COMPARE_UZ, ButtonTexts.MGR_COMPARE_RU]))
+@router.message(F.text.in_([ButtonTexts.MGR_COMPARE_UZ, ButtonTexts.MGR_COMPARE_RU, LegacyButtonTexts.MGR_COMPARE_RU]))
 async def manager_compare(message: Message, state: FSMContext, session: AsyncSession):
     if not await ensure_roles(message, session, *_MANAGER_ONLY):
         return
