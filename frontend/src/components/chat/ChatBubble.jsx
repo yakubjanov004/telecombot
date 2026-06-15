@@ -1,13 +1,12 @@
 import { formatTime } from '../../utils/format';
+import { mediaUrl } from '../../utils/api';
 
 export default function ChatBubble({ message, onImageClick }) {
   const { sender, message: text, media_url, created_at, status } = message;
   const isClient = sender === 'client';
   const isSystem = sender === 'system';
 
-  const imageUrl = media_url
-    ? (media_url.startsWith('http') ? media_url : `/api${media_url}`)
-    : null;
+  const imageUrl = media_url ? mediaUrl(media_url) : null;
 
   if (isSystem) {
     return (

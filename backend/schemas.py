@@ -1,6 +1,19 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional
 from datetime import datetime
+
+
+def _optional_int(value):
+    if value is None:
+        return None
+    if isinstance(value, str):
+        value = value.strip()
+        if not value:
+            return None
+        if value.isdigit():
+            return int(value)
+        return None
+    return value
 
 
 class InternetApplicationCreate(BaseModel):
@@ -12,6 +25,11 @@ class InternetApplicationCreate(BaseModel):
     rate_plan_first_connection: Optional[str] = None
     selected_tariff_id: Optional[int] = None
     selected_tariff_code: Optional[str] = None
+
+    @field_validator("selected_tariff_id", mode="before")
+    @classmethod
+    def normalize_selected_tariff_id(cls, value):
+        return _optional_int(value)
 
 
 class InternetApplicationResponse(BaseModel):
@@ -47,6 +65,11 @@ class MobileApplicationCreate(BaseModel):
     branches: Optional[str] = None
     selected_tariff_id: Optional[int] = None
     selected_tariff_code: Optional[str] = None
+
+    @field_validator("selected_tariff_id", mode="before")
+    @classmethod
+    def normalize_selected_tariff_id(cls, value):
+        return _optional_int(value)
 
 
 class MobileApplicationResponse(BaseModel):

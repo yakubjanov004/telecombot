@@ -14,6 +14,12 @@ function cleanValue(value) {
   return String(value || '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+function optionalInt(value) {
+  if (value == null || value === '') return undefined;
+  const numberValue = Number(value);
+  return Number.isInteger(numberValue) ? numberValue : undefined;
+}
+
 export default function ApplicationForm({
   serviceType,
   tariff,
@@ -48,12 +54,15 @@ export default function ApplicationForm({
     setLoading(true);
     setApiError('');
 
+    const selectedTariffId = optionalInt(tariff?.id);
     const payload = {
       branches: cleanValue(region),
       rate_plan_first_connection: tariff?.name || '',
-      selected_tariff_id: tariff?.id,
       selected_tariff_code: tariff?.name,
     };
+    if (selectedTariffId !== undefined) {
+      payload.selected_tariff_id = selectedTariffId;
+    }
     if (isMobile) {
       payload.msisdn = cleanValue(msisdn);
     }

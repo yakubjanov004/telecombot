@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+import socket
 import sys
 import uvicorn
 from dotenv import load_dotenv
@@ -27,6 +28,17 @@ async def setup_folders():
         if not os.path.exists(folder):
             os.makedirs(folder)
             logger.info("Created folder: %s", folder)
+
+def ensure_port_available(host: str, port: int):
+    bind_host = host or "0.0.0.0"
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.bind((bind_host, port))
+    except OSError as exc:
+        raise RuntimeError(
+            f"Cannot start API on {host}:{port}; port is already in use. "
+            "Stop the duplicate backend process/service or set APP_PORT to a free port."
+        ) from exc
 
 async def setup_db():
     """Create tables and seed initial data if needed."""
@@ -148,6 +160,12 @@ async def main():
     # Load settings/config
     load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"), override=True)
     import backend.config as settings
+
+    try:
+        ensure_port_available(settings.APP_HOST, settings.APP_PORT)
+    except RuntimeError as exc:
+        logger.error("%s", exc)
+        raise SystemExit(1)
 
     await setup_folders()
     await setup_db()

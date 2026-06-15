@@ -2,6 +2,19 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 
 const MAX_RECONNECT = 5;
 const RECONNECT_DELAY = 3000;
+const WS_BASE_URL = (import.meta.env.VITE_WS_BASE_URL || '').replace(/\/+$/, '');
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/+$/, '');
+
+function buildWsUrl(sessionId) {
+  if (WS_BASE_URL) return `${WS_BASE_URL}/ws/chat/${sessionId}`;
+  if (API_BASE_URL) {
+    const apiUrl = new URL(API_BASE_URL, window.location.origin);
+    apiUrl.protocol = apiUrl.protocol === 'https:' ? 'wss:' : 'ws:';
+    return `${apiUrl.origin}/ws/chat/${sessionId}`;
+  }
+  const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  return `${protocol}//${window.location.host}/ws/chat/${sessionId}`;
+}
 
 export default function useWebSocket(sessionId, { onExpired, onOperatorConnected } = {}) {
   const [messages, setMessages] = useState([]);
@@ -62,8 +75,7 @@ export default function useWebSocket(sessionId, { onExpired, onOperatorConnected
       return;
     }
 
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.host}/ws/chat/${sessionId}`;
+    const wsUrl = buildWsUrl(sessionId);
     const ws = new WebSocket(wsUrl);
     socketRef.current = ws;
     setConnectionState('connecting');
