@@ -8,6 +8,12 @@ import { closeChatSession, uploadChatImage } from '../utils/api';
 
 export default function ClientChat({ sessionInfo, onSessionExpired, onSessionCompleted }) {
   const { session_id: sessionId, client_name: clientName } = sessionInfo;
+  const fallbackParts = String(clientName || '').split('/').map((part) => part.trim()).filter(Boolean);
+  const headerLocation = sessionInfo.location || fallbackParts[0];
+  const headerTariff = sessionInfo.tariff?.name || sessionInfo.tariff_name || fallbackParts[1];
+  const headerTitle = headerLocation && headerTariff
+    ? `${headerLocation} · ${headerTariff}`
+    : clientName || 'Mijoz';
   const [inputText, setInputText] = useState('');
   const [uploading, setUploading] = useState(false);
   const [closing, setClosing] = useState(false);
@@ -104,7 +110,7 @@ export default function ClientChat({ sessionInfo, onSessionExpired, onSessionCom
               {clientName?.charAt(0)?.toUpperCase() || 'M'}
             </div>
             <div>
-              <h1 className="chat-header__name">{clientName || 'Mijoz'}</h1>
+              <h1 className="chat-header__name">{headerTitle}</h1>
               <ConnectionStatus state={connectionState} operatorOnline={operatorOnline} />
             </div>
           </div>
@@ -127,8 +133,8 @@ export default function ClientChat({ sessionInfo, onSessionExpired, onSessionCom
           <div className="chat-thread" role="log" aria-live="polite" aria-label="Chat xabarlari">
             {visibleMessages.length === 0 && (
               <div className="chat-empty">
-                <p>Operator javobi shu chatga keladi.</p>
-                <p className="chat-empty__hint">Savolingizni yozing yoki rasm yuboring.</p>
+                <p>Lokatsiya va tarif operatorga yuborildi.</p>
+                <p className="chat-empty__hint">Savolingiz bo'lsa, shu chatga yozing yoki rasm yuboring.</p>
               </div>
             )}
             {visibleMessages.map((msg) => (

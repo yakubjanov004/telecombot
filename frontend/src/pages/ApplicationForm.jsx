@@ -32,8 +32,8 @@ export default function ApplicationForm({
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState('');
   const isMobile = serviceType === 'mobile';
-  const regionLabel = isMobile ? 'Hudud' : 'Filial';
-  const regionError = isMobile ? 'Hududni kiriting' : 'Filialni kiriting';
+  const regionLabel = isMobile ? 'Hudud' : 'Lokatsiya';
+  const regionError = isMobile ? 'Hududni kiriting' : 'Lokatsiyani kiriting';
 
   const validate = () => {
     const nextErrors = {};
@@ -84,6 +84,9 @@ export default function ApplicationForm({
       onSubmitSuccess({
         ...session,
         application_type: serviceType,
+        location: payload.branches,
+        tariff_name: payload.rate_plan_first_connection,
+        requested_number: payload.msisdn,
         tariff,
       });
     } catch (err) {
@@ -104,7 +107,7 @@ export default function ApplicationForm({
           <p className="flow-subtitle">
             {isMobile
               ? 'Hudud va tanlamoqchi bo\'lgan raqamni kiriting'
-              : 'Tanlangan tarif uchun filialni kiriting'}
+              : 'Tanlangan tarif uchun lokatsiyani kiriting'}
           </p>
 
           {apiError && <div className="alert alert--error">{apiError}</div>}
@@ -124,7 +127,7 @@ export default function ApplicationForm({
                   setRegion(e.target.value);
                   if (errors.region) setErrors((current) => ({ ...current, region: undefined }));
                 }}
-                placeholder={isMobile ? 'Masalan: Toshkent sh.' : 'Masalan: Toshkent filiali'}
+                placeholder={isMobile ? 'Masalan: Toshkent sh.' : 'Masalan: Toshkent sh., Yunusobod'}
                 autoComplete="address-level1"
               />
             </FormField>

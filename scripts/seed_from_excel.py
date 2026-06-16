@@ -72,9 +72,22 @@ def _extract_month_candidates(name: str) -> list[int]:
     return seen
 
 
-def _extract_default_month(name: str) -> int | None:
-    candidates = _extract_month_candidates(name)
-    return candidates[0] if candidates else None
+def _unique_months(months: list[int]) -> list[int]:
+    return list(dict.fromkeys(months))
+
+
+def _wraps_year(months: list[int]) -> bool:
+    unique = _unique_months(months)
+    return 12 in unique and 1 in unique
+
+
+def _directory_default_month(name: str) -> int | None:
+    months = _unique_months(_extract_month_candidates(name))
+    if len(months) == 1:
+        return months[0]
+    if _wraps_year(months):
+        return min(months)
+    return None
 
 
 def _extract_default_year(name: str) -> int | None:
@@ -90,7 +103,23 @@ def _file_default_month(file_name: str, fallback_months: list[int] | None) -> in
         return None
     if fallback_months and len(fallback_months) == 1:
         return fallback_months[0]
+    if fallback_months and _wraps_year(fallback_months):
+        return min(_unique_months(fallback_months))
     return None
+
+
+def _file_default_year(file_name: str, default_year: int, fallback_months: list[int] | None) -> int:
+    file_year = _extract_default_year(file_name)
+    if file_year is not None:
+        return file_year
+
+    file_months = _extract_month_candidates(file_name)
+    if len(file_months) == 1 and fallback_months and _wraps_year(fallback_months):
+        anchor_month = min(_unique_months(fallback_months))
+        if file_months[0] > anchor_month:
+            return default_year - 1
+
+    return default_year
 
 
 def _discover_data_dirs() -> list[dict[str, object]]:
@@ -109,7 +138,7 @@ def _discover_data_dirs() -> list[dict[str, object]]:
                 "path": d,
                 "label": d.name,
                 "default_year": _extract_default_year(d.name) or IMPORT_YEAR,
-                "default_month": _extract_default_month(d.name),
+                "default_month": _directory_default_month(d.name),
                 "default_months": _extract_month_candidates(d.name),
             }
             for d in directories
@@ -216,9 +245,12 @@ async def seed_from_excel():
         logger.info(f"Starting import of {len(to_import)} files from {label}.")
         for file_path in to_import:
             file_month = _file_default_month(file_path.stem, fallback_months or [])
-            file_year = _extract_default_year(file_path.stem)
             effective_month = file_month if file_month is not None else default_month
-            effective_year = file_year if file_year is not None else default_year
+            effective_year = _file_default_year(
+                file_path.stem,
+                int(default_year),
+                fallback_months or [],
+            )
 
             logger.info(
                 f"-> Processing: {file_path.name} "

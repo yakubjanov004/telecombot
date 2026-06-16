@@ -35,6 +35,42 @@ class ChatService:
         self.telegram = TelegramAdapter()
 
     @staticmethod
+    def _display_value(value: Optional[str], fallback: str = "Kiritilmagan") -> str:
+        text = str(value or "").strip()
+        return text or fallback
+
+    def _format_chat_request_message(
+        self,
+        application_type: str,
+        application_id: int,
+        app: Optional[InternetApplication | MobileApplication],
+    ) -> str:
+        service_label = "Internet" if application_type == "internet" else "Mobil"
+        text = f"🆕 <b>Yangi chat so'rovi ({service_label} #{application_id})</b>\n\n"
+
+        if not app:
+            return text + "<b>Ma'lumot:</b> Ariza topilmadi\n\n<i>⏳ Mijoz operator javobini kutmoqda.</i>"
+
+        tariff = self._display_value(
+            getattr(app, "rate_plan_first_connection", None)
+            or getattr(app, "selected_tariff_code", None)
+        )
+
+        if application_type == "internet":
+            location = self._display_value(getattr(app, "branches", None))
+            text += f"<b>Lokatsiya:</b> {location}\n"
+            text += f"<b>Tanlangan tarif:</b> {tariff}\n"
+        else:
+            location = self._display_value(getattr(app, "branches", None))
+            number = self._display_value(getattr(app, "msisdn", None))
+            text += f"<b>Hudud:</b> {location}\n"
+            text += f"<b>Tanlangan raqam:</b> {number}\n"
+            text += f"<b>Tanlangan tarif:</b> {tariff}\n"
+
+        text += "\n<i>⏳ Mijoz operator javobini kutmoqda. Xabar yozishingiz mumkin.</i>"
+        return text
+
+    @staticmethod
     def _is_missing_topic_error(error: Optional[str]) -> bool:
         return bool(error and "message thread not found" in error.lower())
 
@@ -88,27 +124,12 @@ class ChatService:
                 if application_type == "internet":
                     res = await self.db.execute(select(InternetApplication).filter(InternetApplication.id == application_id))
                     app = res.scalar_one_or_none()
-                    msg_text = f"🆕 <b>Yangi chat so'rovi (Internet #{application_id})</b>\n\n"
-                    if app:
-                        msg_text += f"<b>BRANCHES:</b> {app.branches or ''}\n"
-                        msg_text += f"<b>DEPARTMENTS:</b> {app.departments or ''}\n"
-                        msg_text += f"<b>NAVI_USER:</b> {app.navi_user or ''}\n"
-                        msg_text += f"<b>RT_LC_STATES:</b> {app.rt_lc_states or ''}\n"
-                        msg_text += f"<b>MSISDN:</b> {app.msisdn or ''}\n"
-                        msg_text += f"<b>RATE_PLAN_FIRST_CONNECTION:</b> {app.rate_plan_first_connection or app.selected_tariff_code or ''}\n"
                 else:
                     res = await self.db.execute(select(MobileApplication).filter(MobileApplication.id == application_id))
                     app = res.scalar_one_or_none()
-                    msg_text = f"🆕 <b>Yangi chat so'rovi (Mobil #{application_id})</b>\n\n"
-                    if app:
-                        msg_text += f"<b>DEALER:</b> {app.dealer or ''}\n"
-                        msg_text += f"<b>NAVI_USER:</b> {app.navi_user or ''}\n"
-                        msg_text += f"<b>MSISDN:</b> {app.msisdn or ''}\n"
-                        msg_text += f"<b>RATE_PLAN_FIRST_CONNECTION:</b> {app.rate_plan_first_connection or app.selected_tariff_code or ''}\n"
-                        msg_text += f"<b>Branches:</b> {app.branches or ''}\n"
-                msg_text += f"\n<i>⏳ Mijoz operator ulanishini kutmoqda...</i>"
+                msg_text = self._format_chat_request_message(application_type, application_id, app)
                 
-                reply_markup = self.create_claim_button(session_id)
+                reply_markup = self.create_end_button(session_id)
                 msg_id = await self.telegram.send_message(msg_text, topic_id, reply_markup=reply_markup)
                 if msg_id:
                     await self.telegram.pin_chat_message(msg_id)
@@ -256,12 +277,8 @@ class ChatService:
         topic_id = int(INTERNET_TOPIC_ID)
         text = (
             f"📋 <b>Yangi ariza (Internet) #{app_id}</b>\n\n"
-            f"<b>BRANCHES:</b> {branches}\n"
-            f"<b>DEPARTMENTS:</b> {departments}\n"
-            f"<b>NAVI_USER:</b> {navi_user}\n"
-            f"<b>RT_LC_STATES:</b> {rt_lc_states}\n"
-            f"<b>MSISDN:</b> {msisdn}\n"
-            f"<b>RATE_PLAN_FIRST_CONNECTION:</b> {rate_plan_first_connection}\n"
+            f"<b>Lokatsiya:</b> {self._display_value(branches)}\n"
+            f"<b>Tanlangan tarif:</b> {self._display_value(rate_plan_first_connection)}\n"
             f"🕐 <b>Vaqt:</b> {created_at.strftime('%d.%m.%Y %H:%M')}"
         )
         await self.telegram.send_message(text, topic_id)
@@ -279,24 +296,15 @@ class ChatService:
         topic_id = int(MOBILE_TOPIC_ID)
         text = (
             f"📋 <b>Yangi ariza (Mobil) #{app_id}</b>\n\n"
-            f"<b>DEALER:</b> {dealer}\n"
-            f"<b>NAVI_USER:</b> {navi_user}\n"
-            f"<b>MSISDN:</b> {msisdn}\n"
-            f"<b>RATE_PLAN_FIRST_CONNECTION:</b> {rate_plan_first_connection}\n"
-            f"<b>Branches:</b> {branches}\n"
+            f"<b>Hudud:</b> {self._display_value(branches)}\n"
+            f"<b>Tanlangan raqam:</b> {self._display_value(msisdn)}\n"
+            f"<b>Tanlangan tarif:</b> {self._display_value(rate_plan_first_connection)}\n"
             f"🕐 <b>Vaqt:</b> {created_at.strftime('%d.%m.%Y %H:%M')}"
         )
         await self.telegram.send_message(text, topic_id)
 
     def create_claim_button(self, session_id: str) -> dict:
-        return {
-            "inline_keyboard": [
-                [
-                    {"text": "✅ Qabul qilish", "callback_data": f"claim_{session_id}"},
-                    {"text": "🛑 Chatni tugatish", "callback_data": f"end_{session_id}"}
-                ]
-            ]
-        }
+        return self.create_end_button(session_id)
 
     def create_operator_keyboard(self) -> dict:
         return {
@@ -364,7 +372,7 @@ class ChatService:
             return
 
         welcome_text = (
-            "✅ Arizangiz qabul qilindi. Operator ma'lumotlarni ko'rib chiqmoqda. "
+            "✅ Arizangiz yuborildi. Lokatsiya va tarif ma'lumotlari operatorga uzatildi. "
             "Savolingiz bo'lsa, shu chatga yozing."
         )
 
@@ -494,7 +502,11 @@ class ChatService:
         topic_id = await self.telegram.create_forum_topic(topic_name)
         if topic_id:
             await session_repo.update_topic_info(session.session_id, topic_id, int(CHAT_GROUP_ID))
-            msg_text = f"🆕 <b>Qayta tiklangan chat #{session.application_id}</b>\n👤 <b>Mijoz:</b> {session.client_name}"
-            reply_markup = self.create_claim_button(session.session_id)
+            msg_text = (
+                f"🆕 <b>Qayta tiklangan chat #{session.application_id}</b>\n"
+                f"<b>Mijoz ma'lumoti:</b> {self._display_value(session.client_name)}\n\n"
+                "<i>⏳ Mijoz operator javobini kutmoqda.</i>"
+            )
+            reply_markup = self.create_end_button(session.session_id)
             await self.telegram.send_message(msg_text, topic_id, reply_markup=reply_markup)
         return topic_id

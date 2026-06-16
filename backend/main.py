@@ -455,7 +455,7 @@ async def operator_message(data: OperatorMessage, db: AsyncSession = Depends(get
             {
                 "type": "system",
                 "status": "claimed",
-                "message": "👤 Operator chatga ulandi. Javoblar shu yerga keladi.",
+                "message": "👤 Operator chatga qo'shildi. Javoblar shu yerga keladi.",
             },
         )
         return {"status": "success" if online else "sent", "message": "ok"}
